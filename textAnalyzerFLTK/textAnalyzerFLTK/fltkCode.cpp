@@ -6,4 +6,7 @@
 //  Copyright © 2020 Sarah Carter. All rights reserved.
 //
 
+#include <FL/Fl_Widget.H>
+#include <FL/Fl_Button.H>
+
 #include "fltkCode.hpp"
