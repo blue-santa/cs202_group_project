@@ -6,13 +6,14 @@
 //  Copyright © 2020 Sarah Carter. All rights reserved.
 //
 
-#include <FL/Fl_Native_File_Chooser.H>
-#include <FL/Fl_Input.H>
-#include <FL/Fl_Output.H>
+
 #include <iostream>
 
+#include "fltkCode.hpp"
+
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    Fl_Window* window = CreateWindow();
+    window->show();
+    
+    return Fl::run();
 }
