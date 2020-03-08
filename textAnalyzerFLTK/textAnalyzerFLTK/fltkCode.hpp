@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
+#include <FL/Fl_Widget.H>
 
 Fl_Window* CreateWindow();
 
