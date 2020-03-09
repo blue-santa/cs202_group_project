@@ -263,11 +263,9 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/lib,
+					/usr/local,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/opt,
-					/usr/local/Cellar/fltk/1.3.5/lib,
-				);
+				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.5/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "";
 			};
@@ -283,11 +281,9 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/lib,
+					/usr/local,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/opt,
-					/usr/local/Cellar/fltk/1.3.5/lib,
-				);
+				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.5/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "";
 			};
