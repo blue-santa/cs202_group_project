@@ -1,0 +1,4 @@
+[submodule "submodules/meta"]
+	path = submodules/meta
+	url = git@github.com:siddhartha-crypto/meta.git
+    ignore = all
