@@ -18,6 +18,7 @@ using std::pair;
 using std::make_pair;
 using std::setw;
 using std::right;
+using std::left;
 
 int main() {
 
@@ -31,17 +32,13 @@ int main() {
         exit(0);
     }
 
-    string alphabet = "abcdefghijklmnopqrstuvwxyz"
-
-    string line;
+    string alphabet = "abcdefghijklmnopqrstuvwxyz"; 
     while (true) {
+        string line;
 
         getline(fin, line);
-
-        cout << line << endl;
         
         if (line == "") {
-            cout << "Error reading line" << endl;
             break;
         }
 
@@ -55,11 +52,17 @@ int main() {
             exit(0);
         }
 
+        bool found = false;
+
         for (auto c: word) {
-            cout << "skipping: " << word << endl;
-            if (alphabet.find(alphabet.begin(), alphabet.end(), c) == std::string::npos) {
-                continue;
+            if (alphabet.find(c) == std::string::npos) {
+                cout << "skipping " << word << endl;
+                found = true;
             }
+        }
+
+        if (found) {
+            continue;
         }
 
         int count;
@@ -97,7 +100,7 @@ int main() {
     }
 
     for (int i = 0; i < len; i++) {
-        fout << setw(longestLen) << data.at(i).first << " " << setw(5) << right << data.at(i).second << endl;
+        fout << left << setw(longestLen) << data.at(i).first << " " << setw(5) << right << data.at(i).second << endl;
     }
 
     return 0;
