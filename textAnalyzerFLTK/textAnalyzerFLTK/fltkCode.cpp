@@ -55,6 +55,8 @@ Fl_Window* CreateWindow(){
     }
     fileFind = new Fl_Native_File_Chooser;
     fileFind->type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
+    fileFind->title("Choose a file to analyze");
+    fileFind->filter("Textfiles\t*.txt");
     fileFind->directory("/var/tmp");
     fileFind->show();
     buff = new Fl_Text_Buffer();
