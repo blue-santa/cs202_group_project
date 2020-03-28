@@ -60,7 +60,7 @@ Fl_Window* CreateWindow(){
     fileFind->directory("/var/tmp");
     fileFind->show();
     buff = new Fl_Text_Buffer();
-    reportDisp = new Fl_Text_Display(25, 10, 750, 550);
+    reportDisp = new Fl_Text_Display(25, 150, 750, 300);
     quit = new Fl_Button(350, 575, 100, 20, "Exit");
     
     reportDisp -> buffer(buff);
