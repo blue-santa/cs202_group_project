@@ -61,6 +61,7 @@ Fl_Window* CreateWindow(){
     fileFind->show();
     buff = new Fl_Text_Buffer();
     reportDisp = new Fl_Text_Display(25, 150, 750, 300);
+    browser = new Fl_Button(50, 125, 100, 20, "Browse");
     quit = new Fl_Button(350, 575, 100, 20, "Exit");
     
     reportDisp -> buffer(buff);
