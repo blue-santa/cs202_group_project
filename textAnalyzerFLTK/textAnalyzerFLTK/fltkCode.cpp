@@ -19,6 +19,9 @@
 #include "fltkCode.hpp"
 
 Fl_Native_File_Chooser* fileFind = nullptr;
+Fl_Box* progTitle = nullptr;
+Fl_Box* instructions = nullptr;
+Fl_Box* description = nullptr;
 Fl_Button* browser = nullptr;
 Fl_Button* quit = nullptr;
 Fl_Output* report = nullptr;
@@ -38,7 +41,7 @@ void OnExitClicked_cb(Fl_Widget* w, void* data){
 }
 
 Fl_Window* CreateWindow(){
-    Fl_Window* win = new Fl_Window(800, 600, "Text Analyzer");
+    Fl_Window* win = new Fl_Window(800, 600,"");
     win -> begin();
     std::string output, line;
     std::ifstream fin("Output.txt");
@@ -60,6 +63,7 @@ Fl_Window* CreateWindow(){
     fileFind->directory("/var/tmp");
     fileFind->show();
     buff = new Fl_Text_Buffer();
+    progTitle = new Fl_Box(10,10,775, 100, "Text Analyzer");
     reportDisp = new Fl_Text_Display(25, 150, 750, 300);
     browser = new Fl_Button(50, 125, 100, 20, "Browse");
     quit = new Fl_Button(350, 575, 100, 20, "Exit");
