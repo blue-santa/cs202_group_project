@@ -7,7 +7,7 @@
 //
 
 #include <FL/Fl_Button.H>
-#include <FL/Fl_Native_File_Chooser.H>
+#include <FL/Fl_File_Browser.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Box.H>
@@ -18,7 +18,7 @@
 
 #include "fltkCode.hpp"
 
-Fl_Native_File_Chooser* fileFind = nullptr;
+//Fl_File_Browser* fileFind = nullptr;
 Fl_Box* progTitle = nullptr;
 Fl_Box* instructions = nullptr;
 Fl_Box* description = nullptr;
@@ -56,19 +56,31 @@ Fl_Window* CreateWindow(){
         }
         output += (line + "\n");
     }
-    fileFind = new Fl_Native_File_Chooser;
-    fileFind->type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
-    fileFind->title("Choose a file to analyze");
-    fileFind->filter("Textfiles\t*.txt");
-    fileFind->directory("/var/tmp");
-    fileFind->show();
+    Fl_File_Browser fileFind(10,10,300-20,400-20);
+    fileFind.load("*");
+
+//    fileFind->type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
+//    fileFind->title("Choose a file to analyze");
+//    fileFind->filter("Textfiles\t*.txt");
+//    fileFind->directory("/var/tmp");
+//    fileFind->show();
+    
     buff = new Fl_Text_Buffer();
+    
     progTitle = new Fl_Box(275,10,250, 50, "Text Analyzer");
     progTitle->box(FL_UP_BOX);
     progTitle->labelsize(24);
-    reportDisp = new Fl_Text_Display(25, 150, 750, 300);
-    browser = new Fl_Button(50, 125, 100, 20, "Browse");
+    
+    description = new Fl_Box(100,70,600,50, "This program will take a text that you select"
+                                           " and analyze the content for frequency \nof "
+                             "specific words to categorize the text for you.");
+    description->labelsize(14);
+    description->box(FL_UP_BOX);
+    
+    reportDisp = new Fl_Text_Display(25, 200, 750, 300);
+    browser = new Fl_Button(50, 165, 100, 20, "Browse");
     quit = new Fl_Button(350, 575, 100, 20, "Exit");
+    
     reportDisp -> buffer(buff);
     buff->text(output.c_str());
     quit -> callback(OnExitClicked_cb, (void*) win);
