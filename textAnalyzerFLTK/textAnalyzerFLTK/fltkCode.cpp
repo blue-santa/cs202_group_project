@@ -77,6 +77,10 @@ Fl_Window* CreateWindow(){
     description->labelsize(14);
     description->box(FL_UP_BOX);
     
+    instructions = new Fl_Box(200, 155, 500, 40, "Click the \"Browse\" button to search "
+                              "for the file you wish to analyze.");
+    instructions->box(FL_UP_BOX);
+    
     reportDisp = new Fl_Text_Display(25, 200, 750, 300);
     browser = new Fl_Button(50, 165, 100, 20, "Browse");
     quit = new Fl_Button(350, 575, 100, 20, "Exit");
