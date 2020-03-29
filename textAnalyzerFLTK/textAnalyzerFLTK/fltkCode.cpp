@@ -7,7 +7,7 @@
 //
 
 #include <FL/Fl_Button.H>
-#include <FL/Fl_Native_File_Chooser.H>
+#include <FL/Fl_File_Browser.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Box.H>
@@ -18,7 +18,10 @@
 
 #include "fltkCode.hpp"
 
-Fl_Native_File_Chooser* fileFind = nullptr;
+//Fl_File_Browser* fileFind = nullptr;
+Fl_Box* progTitle = nullptr;
+Fl_Box* instructions = nullptr;
+Fl_Box* description = nullptr;
 Fl_Button* browser = nullptr;
 Fl_Button* quit = nullptr;
 Fl_Output* report = nullptr;
@@ -38,7 +41,7 @@ void OnExitClicked_cb(Fl_Widget* w, void* data){
 }
 
 Fl_Window* CreateWindow(){
-    Fl_Window* win = new Fl_Window(800, 600, "Text Analyzer");
+    Fl_Window* win = new Fl_Window(800, 600,"");
     win -> begin();
     std::string output, line;
     std::ifstream fin("Output.txt");
@@ -53,12 +56,33 @@ Fl_Window* CreateWindow(){
         }
         output += (line + "\n");
     }
-    fileFind = new Fl_Native_File_Chooser;
-    fileFind->type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
-    fileFind->directory("/var/tmp");
-    fileFind->show();
+    Fl_File_Browser fileFind(10,10,300-20,400-20);
+    fileFind.load("*");
+
+//    fileFind->type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
+//    fileFind->title("Choose a file to analyze");
+//    fileFind->filter("Textfiles\t*.txt");
+//    fileFind->directory("/var/tmp");
+//    fileFind->show();
+    
     buff = new Fl_Text_Buffer();
-    reportDisp = new Fl_Text_Display(25, 10, 750, 550);
+    
+    progTitle = new Fl_Box(275,10,250, 50, "Text Analyzer");
+    progTitle->box(FL_UP_BOX);
+    progTitle->labelsize(24);
+    
+    description = new Fl_Box(100,70,600,50, "This program will take a text that you select"
+                                           " and analyze the content for frequency \nof "
+                             "specific words to categorize the text for you.");
+    description->labelsize(14);
+    description->box(FL_UP_BOX);
+    
+    instructions = new Fl_Box(175, 155, 500, 40, "Click the \"Browse\" button to search "
+                              "for the file you wish to analyze.");
+    instructions->box(FL_UP_BOX);
+    
+    reportDisp = new Fl_Text_Display(25, 200, 750, 300);
+    browser = new Fl_Button(50, 165, 100, 20, "Browse");
     quit = new Fl_Button(350, 575, 100, 20, "Exit");
     
     reportDisp -> buffer(buff);
