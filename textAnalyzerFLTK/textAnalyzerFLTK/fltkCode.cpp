@@ -77,7 +77,7 @@ Fl_Window* CreateWindow(){
     description->labelsize(14);
     description->box(FL_UP_BOX);
     
-    instructions = new Fl_Box(200, 155, 500, 40, "Click the \"Browse\" button to search "
+    instructions = new Fl_Box(175, 155, 500, 40, "Click the \"Browse\" button to search "
                               "for the file you wish to analyze.");
     instructions->box(FL_UP_BOX);
     
