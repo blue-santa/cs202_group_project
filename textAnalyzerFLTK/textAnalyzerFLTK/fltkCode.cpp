@@ -63,11 +63,12 @@ Fl_Window* CreateWindow(){
     fileFind->directory("/var/tmp");
     fileFind->show();
     buff = new Fl_Text_Buffer();
-    progTitle = new Fl_Box(10,10,775, 100, "Text Analyzer");
+    progTitle = new Fl_Box(275,10,250, 50, "Text Analyzer");
+    progTitle->box(FL_UP_BOX);
+    progTitle->labelsize(24);
     reportDisp = new Fl_Text_Display(25, 150, 750, 300);
     browser = new Fl_Button(50, 125, 100, 20, "Browse");
     quit = new Fl_Button(350, 575, 100, 20, "Exit");
-    
     reportDisp -> buffer(buff);
     buff->text(output.c_str());
     quit -> callback(OnExitClicked_cb, (void*) win);
