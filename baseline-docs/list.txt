@@ -1,7 +1,7 @@
-anthropological-survey-in-alaska.txt
-connie-morgan-in-alaska.txt
-ethnological-results-of-the-point-barrow-expedition.txt
-myths-and-legends-of-alaska.txt
-songs-of-a-sourdough.txt
-spell-of-the-yukon.txt
-story-of-sitka.txt
+anthropological-survey-in-alaska.stops.stems.freq.1.txt
+connie-morgan-in-alaska.stops.stems.freq.1.txt
+ethnological-results-of-the-point-barrow-expedition.stops.stems.freq.1.txt
+myths-and-legends-of-alaska.stops.stems.freq.1.txt
+songs-of-a-sourdough.stops.stems.freq.1.txt
+spell-of-the-yukon.stops.stems.freq.1.txt
+story-of-sitka.stops.stems.freq.1.txt
