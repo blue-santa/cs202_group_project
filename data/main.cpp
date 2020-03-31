@@ -104,6 +104,18 @@ void processFile(const string& inputFilename, vector< pair<string, int>>& data) 
 
 }
 
+void processBaselineFiles(vector< vector< pair< string, int>>>& baselineFileData, const vector<string>& baselineFileNames) {
+
+    for (size_t i = 0; i < baselineFileNames.size(); i++) { 
+        vector< pair< string, int>> data;
+        string currentFilename = "../baseline-docs/" + baselineFileNames.at(i);
+
+        processFile(currentFilename, data);
+        baselineFileData.push_back(data);
+
+    }
+}
+
 int main() {
 
     vector<string> baselineFileNames;
@@ -112,8 +124,8 @@ int main() {
     /********************************************************************
      * Process Baseline Files
     ********************************************************************/
-
-
+    vector< vector< pair< string, int>>> baselineFileData;
+    processBaselineFiles(baselineFileData, baselineFileNames); 
 
     /********************************************************************
      * Process Main File
@@ -124,7 +136,7 @@ int main() {
     processFile(inputFilename, mainData);
 
     /********************************************************************
-     * Begin processing output file
+     * Process output file
     ********************************************************************/
     string outputFile = "output.txt";
 
