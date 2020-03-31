@@ -20,11 +20,33 @@ using std::setw;
 using std::right;
 using std::left;
 
-int main() {
+void callBaselineFilenames(vector<string>& baselineFileNames) {
+    string listFile = "../baseline-docs/list.txt";
+    ifstream fin(listFile);
 
-    vector< pair<string, int> > data;
+    if (!fin) {
+        cout << "Error loading baseline file list" << endl;
+    }
 
-    string inputFilename = "doc.stops.stems.freq.1.txt";
+    while (true) {
+
+        string line; 
+        getline(fin, line); 
+
+        if (line == "") {
+            break;
+        }
+
+        baselineFileNames.push_back(line); 
+
+        if (fin.eof()) {
+            break;
+        }
+    }
+}
+
+void processFile(const string& inputFilename, vector< pair<string, int>>& data) {
+
     ifstream fin(inputFilename);
 
     if (!fin) {
@@ -65,21 +87,45 @@ int main() {
             continue;
         }
 
-        int count;
-        iss >> count;
+        int intCount;
+        iss >> intCount;
 
         if (!iss) {
             cout << "Error reading integer" << endl;
             exit(0);
         }
 
-        data.push_back(make_pair(word, count)); 
+        data.push_back(make_pair(word, intCount)); 
 
         if (fin.eof()) {
             break;
         }
     }
 
+}
+
+int main() {
+
+    vector<string> baselineFileNames;
+    callBaselineFilenames(baselineFileNames);
+
+    /********************************************************************
+     * Process Baseline Files
+    ********************************************************************/
+
+
+
+    /********************************************************************
+     * Process Main File
+    ********************************************************************/
+    vector< pair<string, int> > mainData; 
+    string inputFilename = "doc.stops.stems.freq.1.txt";
+
+    processFile(inputFilename, mainData);
+
+    /********************************************************************
+     * Begin processing output file
+    ********************************************************************/
     string outputFile = "output.txt";
 
     ofstream fout(outputFile);
@@ -89,18 +135,18 @@ int main() {
         exit(0);
     }
 
-    int len = (int)(data.size());
+    int len = (int)(mainData.size());
 
     int longestLen = 0;
 
     for (int i = 0; i < len; i++) {
-        if (longestLen < (int)data.at(i).first.size()) {
-            longestLen = (int)data.at(i).first.size();
+        if (longestLen < (int)mainData.at(i).first.size()) {
+            longestLen = (int)mainData.at(i).first.size();
         }
     }
 
     for (int i = 0; i < len; i++) {
-        fout << left << setw(longestLen) << data.at(i).first << " " << setw(5) << right << data.at(i).second << endl;
+        fout << left << setw(longestLen) << mainData.at(i).first << " " << setw(5) << right << mainData.at(i).second << endl;
     }
 
     return 0;
