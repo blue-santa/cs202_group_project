@@ -141,6 +141,15 @@ void processOutputFile(const string& filename, const vector< pair< string, int>>
 
 }
 
+void processBaselineOutputFiles(const vector<string>& baselineFileNames, const vector< vector< pair< string, int>>>& baselineFileData) {
+    for (size_t i = 0; i < baselineFileNames.size(); i++) {
+        string filename = "./output/" + baselineFileNames.at(i);
+        vector< pair< string, int>> data = baselineFileData.at(i);
+
+        processOutputFile(filename, data); 
+    }
+}
+
 int main() {
 
     vector<string> baselineFileNames;
@@ -159,6 +168,11 @@ int main() {
     string inputFilename = "doc.stops.stems.freq.1.txt";
 
     processFile(inputFilename, mainData);
+
+    /********************************************************************
+     * Process Output Files for Each Baseline File
+    ********************************************************************/
+    processBaselineOutputFiles(baselineFileNames, baselineFileData);
 
     /********************************************************************
      * Process main output file
