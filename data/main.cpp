@@ -20,6 +20,7 @@ using std::setw;
 using std::right;
 using std::left;
 
+// Import the list of filenames for the baseline files and add to a vector for later usage
 void callBaselineFilenames(vector<string>& baselineFileNames) {
     string listFile = "../baseline-docs/list.txt";
     ifstream fin(listFile);
@@ -45,6 +46,7 @@ void callBaselineFilenames(vector<string>& baselineFileNames) {
     }
 }
 
+// Import the data from the provided inputFilename file and process it into a prettier format that only contains recognizable words
 void processFile(const string& inputFilename, vector< pair<string, int>>& data) {
 
     ifstream fin(inputFilename);
@@ -74,6 +76,7 @@ void processFile(const string& inputFilename, vector< pair<string, int>>& data) 
             exit(0);
         }
 
+        // Make sure the word under observation is a readable and alphabetical word
         bool found = false;
 
         for (auto c: word) {
@@ -104,6 +107,7 @@ void processFile(const string& inputFilename, vector< pair<string, int>>& data) 
 
 }
 
+// Process the baseline files 
 void processBaselineFiles(vector< vector< pair< string, int>>>& baselineFileData, const vector<string>& baselineFileNames) {
 
     for (size_t i = 0; i < baselineFileNames.size(); i++) { 
@@ -116,6 +120,7 @@ void processBaselineFiles(vector< vector< pair< string, int>>>& baselineFileData
     }
 }
 
+// Process the provided file by writing its data into an output file
 void processOutputFile(const string& filename, const vector< pair< string, int>>& data) {
 
     ofstream fout(filename);
@@ -125,6 +130,7 @@ void processOutputFile(const string& filename, const vector< pair< string, int>>
         exit(0);
     }
 
+    // Ensure the longest length of any word is represented in the column format for each word
     int len = (int)(data.size());
 
     int longestLen = 0;
@@ -141,6 +147,7 @@ void processOutputFile(const string& filename, const vector< pair< string, int>>
 
 }
 
+// Process each baseline file
 void processBaselineOutputFiles(const vector<string>& baselineFileNames, const vector< vector< pair< string, int>>>& baselineFileData) {
     for (size_t i = 0; i < baselineFileNames.size(); i++) {
         string filename = "./output/" + baselineFileNames.at(i);
