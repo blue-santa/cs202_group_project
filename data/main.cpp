@@ -116,6 +116,31 @@ void processBaselineFiles(vector< vector< pair< string, int>>>& baselineFileData
     }
 }
 
+void processOutputFile(const string& filename, const vector< pair< string, int>>& data) {
+
+    ofstream fout(filename);
+
+    if (!fout) {
+        cout << "Error opening output file" << endl;
+        exit(0);
+    }
+
+    int len = (int)(data.size());
+
+    int longestLen = 0;
+
+    for (int i = 0; i < len; i++) {
+        if (longestLen < (int)data.at(i).first.size()) {
+            longestLen = (int)data.at(i).first.size();
+        }
+    }
+
+    for (int i = 0; i < len; i++) {
+        fout << left << setw(longestLen) << data.at(i).first << " " << setw(5) << right << data.at(i).second << endl;
+    }
+
+}
+
 int main() {
 
     vector<string> baselineFileNames;
@@ -136,30 +161,10 @@ int main() {
     processFile(inputFilename, mainData);
 
     /********************************************************************
-     * Process output file
+     * Process main output file
     ********************************************************************/
-    string outputFile = "output.txt";
-
-    ofstream fout(outputFile);
-
-    if (!fout) {
-        cout << "Error opening output file" << endl;
-        exit(0);
-    }
-
-    int len = (int)(mainData.size());
-
-    int longestLen = 0;
-
-    for (int i = 0; i < len; i++) {
-        if (longestLen < (int)mainData.at(i).first.size()) {
-            longestLen = (int)mainData.at(i).first.size();
-        }
-    }
-
-    for (int i = 0; i < len; i++) {
-        fout << left << setw(longestLen) << mainData.at(i).first << " " << setw(5) << right << mainData.at(i).second << endl;
-    }
+    string mainOutputFile = "output.txt";
+    processOutputFile(mainOutputFile, mainData);
 
     return 0;
 }
