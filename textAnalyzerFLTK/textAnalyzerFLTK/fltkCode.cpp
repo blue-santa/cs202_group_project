@@ -80,9 +80,9 @@ Fl_Window* CreateWindow(){
     Fl_Window* win = new Fl_Window(800, 600,"");
     win -> begin();
     
-    fileChoice = new Fl_Input(175,155,500,40);
-    browser = new Fl_Button(50, 165, 100, 20, "Browse");
-    analyze = new Fl_Button(50, 190, 100, 20, "Analyze");
+    fileChoice = new Fl_Input(175,155,500,45);
+    browser = new Fl_Button(50, 155, 100, 20, "Browse");
+    analyze = new Fl_Button(50, 180, 100, 20, "Analyze");
     
     browser->callback(browserClicked);
     analyze->callback(textAnalysis_CB);
