@@ -20,11 +20,35 @@ using std::setw;
 using std::right;
 using std::left;
 
-int main() {
+// Import the list of filenames for the baseline files and add to a vector for later usage
+void callBaselineFilenames(vector<string>& baselineFileNames) {
+    string listFile = "../baseline-docs/list.txt";
+    ifstream fin(listFile);
 
-    vector< pair<string, int> > data;
+    if (!fin) {
+        cout << "Error loading baseline file list" << endl;
+    }
 
-    string inputFilename = "doc.stops.stems.freq.1.txt";
+    while (true) {
+
+        string line; 
+        getline(fin, line); 
+
+        if (line == "") {
+            break;
+        }
+
+        baselineFileNames.push_back(line); 
+
+        if (fin.eof()) {
+            break;
+        }
+    }
+}
+
+// Import the data from the provided inputFilename file and process it into a prettier format that only contains recognizable words
+void processFile(const string& inputFilename, vector< pair<string, int>>& data) {
+
     ifstream fin(inputFilename);
 
     if (!fin) {
@@ -52,6 +76,7 @@ int main() {
             exit(0);
         }
 
+        // Make sure the word under observation is a readable and alphabetical word
         bool found = false;
 
         for (auto c: word) {
@@ -65,30 +90,47 @@ int main() {
             continue;
         }
 
-        int count;
-        iss >> count;
+        int intCount;
+        iss >> intCount;
 
         if (!iss) {
             cout << "Error reading integer" << endl;
             exit(0);
         }
 
-        data.push_back(make_pair(word, count)); 
+        data.push_back(make_pair(word, intCount)); 
 
         if (fin.eof()) {
             break;
         }
     }
 
-    string outputFile = "output.txt";
+}
 
-    ofstream fout(outputFile);
+// Process the baseline files 
+void processBaselineFiles(vector< vector< pair< string, int>>>& baselineFileData, const vector<string>& baselineFileNames) {
+
+    for (size_t i = 0; i < baselineFileNames.size(); i++) { 
+        vector< pair< string, int>> data;
+        string currentFilename = "../baseline-docs/" + baselineFileNames.at(i);
+
+        processFile(currentFilename, data);
+        baselineFileData.push_back(data);
+
+    }
+}
+
+// Process the provided file by writing its data into an output file
+void processOutputFile(const string& filename, const vector< pair< string, int>>& data) {
+
+    ofstream fout(filename);
 
     if (!fout) {
         cout << "Error opening output file" << endl;
         exit(0);
     }
 
+    // Ensure the longest length of any word is represented in the column format for each word
     int len = (int)(data.size());
 
     int longestLen = 0;
@@ -102,6 +144,48 @@ int main() {
     for (int i = 0; i < len; i++) {
         fout << left << setw(longestLen) << data.at(i).first << " " << setw(5) << right << data.at(i).second << endl;
     }
+
+}
+
+// Process each baseline file
+void processBaselineOutputFiles(const vector<string>& baselineFileNames, const vector< vector< pair< string, int>>>& baselineFileData) {
+    for (size_t i = 0; i < baselineFileNames.size(); i++) {
+        string filename = "./output/" + baselineFileNames.at(i);
+        vector< pair< string, int>> data = baselineFileData.at(i);
+
+        processOutputFile(filename, data); 
+    }
+}
+
+int main() {
+
+    vector<string> baselineFileNames;
+    callBaselineFilenames(baselineFileNames);
+
+    /********************************************************************
+     * Process Baseline Files
+    ********************************************************************/
+    vector< vector< pair< string, int>>> baselineFileData;
+    processBaselineFiles(baselineFileData, baselineFileNames); 
+
+    /********************************************************************
+     * Process Main File
+    ********************************************************************/
+    vector< pair<string, int> > mainData; 
+    string inputFilename = "doc.stops.stems.freq.1.txt";
+
+    processFile(inputFilename, mainData);
+
+    /********************************************************************
+     * Process Output Files for Each Baseline File
+    ********************************************************************/
+    processBaselineOutputFiles(baselineFileNames, baselineFileData);
+
+    /********************************************************************
+     * Process main output file
+    ********************************************************************/
+    string mainOutputFile = "output.txt";
+    processOutputFile(mainOutputFile, mainData);
 
     return 0;
 }

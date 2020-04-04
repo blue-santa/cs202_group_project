@@ -18,3 +18,25 @@ sed -i 's/xlocale/locale/' deps/icu-58.2/src/ExternalICU/source/i18n/digitlst.cp
 
 # Try make again
 make
+
+# May also need to add the following to the iterator class in the meta file: `dataset_view.h`
+
+```
+iterator& operator--()
+{
+    --it_;
+    return *this;
+}
+
+iterator operator--(int)
+{
+    auto ret = *this;
+    --(*this);
+    return ret;
+}
+```
+
+# Commands to perform basic analysis (from build directory)
+./profile config.toml ../../../baseline-docs/FILE\_HERE.txt --stop
+./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.txt --stem
+./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.stems.txt --freq-unigram 
