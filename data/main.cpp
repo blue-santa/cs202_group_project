@@ -164,6 +164,7 @@ void processBaselineOutputFiles(const vector<string>& baselineFileNames, const v
 int main() {
 
     string path = "../baseline-docs/";
+    vector<string> categoryNames;
     for (const auto & entry : fs::directory_iterator(path)) {
         cout << entry.path() << endl;
         const auto next_path = entry.path();
