@@ -166,7 +166,12 @@ int main() {
     string path = "../baseline-docs/";
     vector<string> categoryNames;
     for (const auto & entry : fs::directory_iterator(path)) {
-        cout << entry.path() << endl;
+        string curr_category_name = entry.path();
+        size_t last_instance = curr_category_name.find_last_of('/');
+        curr_category_name = curr_category_name.substr((int)last_instance + 1, (int)curr_category_name.size());
+        cout << "Current Category Name: " << curr_category_name << endl << endl;;
+
+        categoryNames.push_back(curr_category_name);
         const auto next_path = entry.path();
         for (const auto& nextList : fs::directory_iterator(next_path)) {
             cout << nextList.path() << endl;
