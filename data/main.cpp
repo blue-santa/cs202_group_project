@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <iostream>
 #include <iterator>
+#include <filesystem>
 
 using std::cin;
 using std::cout;
@@ -20,6 +21,8 @@ using std::setw;
 using std::right;
 using std::left;
 
+namespace fs = std::filesystem;
+
 // Import the list of filenames for the baseline files and add to a vector for later usage
 void callBaselineFilenames(vector<string>& baselineFileNames) {
     string listFile = "../baseline-docs/list.txt";
@@ -27,6 +30,7 @@ void callBaselineFilenames(vector<string>& baselineFileNames) {
 
     if (!fin) {
         cout << "Error loading baseline file list" << endl;
+        exit(0);
     }
 
     while (true) {
@@ -158,6 +162,15 @@ void processBaselineOutputFiles(const vector<string>& baselineFileNames, const v
 }
 
 int main() {
+
+    string path = "../baseline-docs/";
+    for (const auto & entry : fs::directory_iterator(path)) {
+        cout << entry.path() << endl;
+        const auto next_path = entry.path();
+        for (const auto& nextList : fs::directory_iterator(next_path)) {
+            cout << nextList.path() << endl;
+        }
+    }
 
     vector<string> baselineFileNames;
     callBaselineFilenames(baselineFileNames);
