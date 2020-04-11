@@ -106,11 +106,13 @@ Fl_Window* CreateWindow(){
                                            " and analyze the content for frequency \nof "
                              "specific words to categorize the text for you.");
     description->labelsize(14);
-    description->box(FL_UP_BOX);
     
-    fileChoice = new Fl_Input(175,155,500,45);
-    browser = new Fl_Button(50, 155, 100, 20, "Browse");
-    analyze = new Fl_Button(50, 180, 100, 20, "Analyze");
+    instructions = new Fl_Box(175, 155, 500, 40, "Click the \"Browse\" button to search "
+                              "for the file you wish to analyze.");
+    
+    fileChoice = new Fl_Input(175,200,500,45);
+    browser = new Fl_Button(50, 200, 100, 20, "Browse");
+    analyze = new Fl_Button(50, 225, 100, 20, "Analyze");
     quit = new Fl_Button(350, 300, 100, 20, "Exit");
     
     quit -> callback(OnExitClicked_cb, (void*) win);
@@ -120,9 +122,7 @@ Fl_Window* CreateWindow(){
         
 
     
-//    instructions = new Fl_Box(175, 155, 500, 40, "Click the \"Browse\" button to search "
-//                              "for the file you wish to analyze.");
-//    instructions->box(FL_UP_BOX);
+
     win->end();
     return win;
 }
