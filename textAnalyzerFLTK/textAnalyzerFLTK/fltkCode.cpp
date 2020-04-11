@@ -84,7 +84,10 @@ Fl_Window* PopupWindow(){
     Fl_Window* pWin = new Fl_Window(800, 600,"");
     pWin -> begin();
     
-    resultDisp = new Fl_Box(200,20,400,100, "Analysis Results");
+    resultDisp = new Fl_Box(250,20,300,40, "Analysis Results");
+    resultDisp->box(FL_UP_BOX);
+    resultDisp->labelsize(20);
+    
     reportDisp = new Fl_Text_Display(25, 160, 750, 300);
     close = new Fl_Button(350, 500, 100, 20, "Close");
     
@@ -95,7 +98,7 @@ Fl_Window* PopupWindow(){
 }
 
 Fl_Window* CreateWindow(){
-    Fl_Window* win = new Fl_Window(800, 400, "");
+    Fl_Window* win = new Fl_Window(800, 300, "");
     win->begin();
     
     progTitle = new Fl_Box(275,10,250, 50, "Text Analyzer");
@@ -113,7 +116,7 @@ Fl_Window* CreateWindow(){
     fileChoice = new Fl_Input(175,200,500,45);
     browser = new Fl_Button(50, 200, 100, 20, "Browse");
     analyze = new Fl_Button(50, 225, 100, 20, "Analyze");
-    quit = new Fl_Button(350, 300, 100, 20, "Exit");
+    quit = new Fl_Button(350, 275, 100, 20, "Exit");
     
     quit -> callback(OnExitClicked_cb, (void*) win);
 
