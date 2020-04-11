@@ -53,6 +53,8 @@ void browserClicked(Fl_Widget*, void* data){
 }
 
 void textAnalysis_CB(Fl_Widget*, void* data){
+    Fl_Window* win = (Fl_Window*)data;
+    win->show();
     std::string line;
     std::ifstream fin(userFile);
     while(std::getline(fin, line)){
@@ -74,8 +76,8 @@ void textAnalysis_CB(Fl_Widget*, void* data){
 //Close window when "Exit" button is clicked
 void OnExitClicked_cb(Fl_Widget* w, void* data){
     if(!data) return;
-    Fl_Window* pWin = (Fl_Window*)data;
-    pWin->hide();
+    Fl_Window* win = (Fl_Window*)data;
+    win->hide();
 }
 
 Fl_Window* PopupWindow(){
@@ -93,17 +95,9 @@ Fl_Window* PopupWindow(){
 }
 
 Fl_Window* CreateWindow(){
-    Fl_Window* win = new Fl_Window(800, 200, "");
+    Fl_Window* win = new Fl_Window(800, 400, "");
     win->begin();
     
-    fileChoice = new Fl_Input(175,155,500,45);
-    browser = new Fl_Button(50, 155, 100, 20, "Browse");
-    analyze = new Fl_Button(50, 180, 100, 20, "Analyze");
-    quit = new Fl_Button(350, 575, 100, 20, "Exit");
-    
-    browser->callback(browserClicked);
-    analyze->callback(textAnalysis_CB);
-        
     progTitle = new Fl_Box(275,10,250, 50, "Text Analyzer");
     progTitle->box(FL_UP_BOX);
     progTitle->labelsize(24);
@@ -113,7 +107,17 @@ Fl_Window* CreateWindow(){
                              "specific words to categorize the text for you.");
     description->labelsize(14);
     description->box(FL_UP_BOX);
+    
+    fileChoice = new Fl_Input(175,155,500,45);
+    browser = new Fl_Button(50, 155, 100, 20, "Browse");
+    analyze = new Fl_Button(50, 180, 100, 20, "Analyze");
+    quit = new Fl_Button(350, 300, 100, 20, "Exit");
+    
     quit -> callback(OnExitClicked_cb, (void*) win);
+
+    browser->callback(browserClicked);
+    analyze->callback(textAnalysis_CB, (void*)PopupWindow());
+        
 
     
 //    instructions = new Fl_Box(175, 155, 500, 40, "Click the \"Browse\" button to search "
