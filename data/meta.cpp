@@ -165,7 +165,8 @@ void processBaselineOutputFiles(const vector<string>& baselineFileNames, const v
 
 void captureCategories(vector<string>& categoryNames, vector<string>& categoryFiles) {
 
-    string path = "../baseline-docs/";
+    string path = "../baseline-docs/categories/";
+
     for (const auto & entry : fs::directory_iterator(path)) {
         string curr_category_name = entry.path();
         size_t last_instance = curr_category_name.find_last_of('/');
@@ -178,6 +179,8 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
         string categoryfile;
         for (const auto& nextList : fs::directory_iterator(next_path)) {
             string nextPath = nextList.path();
+            cout << endl;
+            cout << string(40, '-') << endl;
             cout << nextPath << endl;
             ifstream fin_import(nextPath);
 
@@ -185,18 +188,36 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
                 cout << "Error importing baseline doc" << endl;
             }
 
+            bool startActivated = false;
+            bool endActivated = false;
+
             while(true) {
 
                 string line;
 
                 getline(fin_import, line);
 
-                categoryfile += line;
+                if (line.find("START OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("START OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
+                    startActivated = !startActivated;
+                    cout << "Activating: " << nextPath << endl;
+                }
+
+                if (line.find("END OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("END OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
+                    endActivated = !endActivated;
+                    cout << "Deactivating: " << nextPath << endl;
+                }
+
+                if (startActivated && !endActivated) {
+                    categoryfile += line;
+                }
 
                 if (fin_import.eof()) {
                     break;
-                }
+                } 
             } 
+
+            cout << string(40, '-') << endl;
+            cout << endl;
         }
 
         cout << "Compact file size: " << categoryfile.size() << endl << endl;;
