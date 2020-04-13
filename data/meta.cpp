@@ -88,7 +88,7 @@ void processFile(const string& inputFilename, vector< pair<string, int>>& data) 
 
         for (auto c: word) {
             if (alphabet.find(c) == std::string::npos) {
-                cout << "skipping " << word << endl;
+                // cout << "skipping " << word << endl;
                 found = true;
             }
         }
@@ -172,17 +172,17 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
         string curr_category_name = entry.path();
         size_t last_instance = curr_category_name.find_last_of('/');
         curr_category_name = curr_category_name.substr((int)last_instance + 1, (int)curr_category_name.size());
-        cout << endl;
-        cout << "Current Category Name: " << curr_category_name << endl << endl;;
+        // cout << endl;
+        // cout << "Current Category Name: " << curr_category_name << endl << endl;;
 
         categoryNames.push_back(curr_category_name);
         const auto next_path = entry.path();
         string categoryfile;
         for (const auto& nextList : fs::directory_iterator(next_path)) {
             string nextPath = nextList.path();
-            cout << endl;
-            cout << string(40, '-') << endl;
-            cout << nextPath << endl;
+            // cout << endl;
+            // cout << string(40, '-') << endl;
+            // cout << nextPath << endl;
             ifstream fin_import(nextPath);
 
             if (!fin_import) {
@@ -200,7 +200,7 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
 
                 if (line.find("END OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("END OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
                     endActivated = !endActivated;
-                    cout << "Deactivating: " << nextPath << endl;
+                    // cout << "Deactivating: " << nextPath << endl;
                 }
 
                 if (startActivated && !endActivated) {
@@ -210,7 +210,7 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
 
                 if (line.find("START OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("START OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
                     startActivated = !startActivated;
-                    cout << "Activating: " << nextPath << endl;
+                    // cout << "Activating: " << nextPath << endl;
                 }
 
 
@@ -219,11 +219,11 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
                 } 
             } 
 
-            cout << string(40, '-') << endl;
-            cout << endl;
+            // cout << string(40, '-') << endl;
+            // cout << endl;
         }
 
-        cout << "Compact file size: " << categoryfile.size() << endl << endl;;
+        // cout << "Compact file size: " << categoryfile.size() << endl << endl;;
         categoryFiles.push_back(categoryfile);
     }
 
@@ -247,22 +247,57 @@ void createAnalysisFiles(const vector<string>& categoryNames, const vector<strin
 
 }
 
+// Execute a command on the command line and return the result
+string exec(const char* cmd) {
+
+    char buffer[128];
+    std::string result = "";
+
+#ifdef _WIN32 
+    FILE* pipe = _popen(cmd, "r"); 
+#elif __unix__ 
+    FILE* pipe = popen(cmd, "r");
+#endif
+
+    if (!pipe) throw std::runtime_error("popen() failed!");
+    try {
+        while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+            result += buffer;
+        }
+    } catch (...) {
+#ifdef _WIN32 
+        _pclose(pipe);
+#elif __unix__ 
+        pclose(pipe);
+#endif
+        throw;
+    }
+#ifdef _WIN32 
+    _pclose(pipe);
+#elif __unix__ 
+    pclose(pipe);
+#endif
+    return result;
+}
+
 // Perform analsysi on the baseline files using MeTA software
 void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const vector<string>& categoryFiles) {
 
-#ifdef _WIN32
+    for (size_t i = 0; i < categoryNames.size(); i++) {
 
-        cout << "This software is not yet prepared to process on Windows" << endl;
+        string command;
+        command += "ls && pwd";
+        // command += "cd ../submodules/meta/build/ ";
+        // command += "&& ./profile config.toml ../../../baseline-docs/temp_analysis_dir/";
+        // command += categoryFiles.at(i);
+        // command += ".txt --stop";
 
-#elif __unix__
-
-        // system("cd ../submodules/meta/build/ && ./profile config.toml ../../../baseline-docs/FILE_HERE.txt --stop ");
-
+        string res = exec(command.c_str());
+        cout << res << endl;
 
             // ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.txt --stem
             // ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.stems.txt --freq-unigram
 
-
-#endif
+    }
 
 }

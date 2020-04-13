@@ -33,6 +33,12 @@ using std::left;
 
 int main() {
 
+    cout << endl;
+    cout << string(40, '-') << endl;
+    cout << "Initiating" << endl;
+    cout << string(40, '-') << endl; 
+    cout << endl;
+
     /********************************************************************
      * Capture Category Names and Files
     ********************************************************************/
@@ -41,12 +47,12 @@ int main() {
     captureCategories(categoryNames, categoryFiles);
 
     /********************************************************************
-     * TODO: Create Analysis Dir
+     * Create Baseline Analysis Files
     ********************************************************************/
     createAnalysisFiles(categoryNames, categoryFiles);
 
     /********************************************************************
-     * Process Category Names and Files
+     * Perform MeTA Analysis on Baseline Analysis Files
     ********************************************************************/
     performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
 
@@ -81,6 +87,12 @@ int main() {
     ********************************************************************/
     // string mainOutputFile = "output.txt";
     // processOutputFile(mainOutputFile, mainData);
+
+    cout << endl;
+    cout << string(40, '-') << endl;
+    cout << "Closing" << endl;
+    cout << string(40, '-') << endl; 
+    cout << endl;
 
     return 0;
 }
