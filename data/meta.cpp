@@ -198,11 +198,6 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
 
                 getline(fin_import, line);
 
-                if (line.find("START OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("START OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
-                    startActivated = !startActivated;
-                    cout << "Activating: " << nextPath << endl;
-                }
-
                 if (line.find("END OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("END OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
                     endActivated = !endActivated;
                     cout << "Deactivating: " << nextPath << endl;
@@ -210,7 +205,14 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
 
                 if (startActivated && !endActivated) {
                     categoryfile += line;
+                    categoryfile += "\n";
                 }
+
+                if (line.find("START OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("START OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
+                    startActivated = !startActivated;
+                    cout << "Activating: " << nextPath << endl;
+                }
+
 
                 if (fin_import.eof()) {
                     break;
