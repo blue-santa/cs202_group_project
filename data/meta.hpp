@@ -49,4 +49,6 @@ void processOutputFile(const string& filename, const vector< pair< string, int>>
 // Process each baseline file
 void processBaselineOutputFiles(const vector<string>& baselineFileNames, const vector< vector< pair< string, int>>>& baselineFileData);
 
+// Capture the category names and files for future processing
+void captureCategories(vector<string>& categoryNames, vector<string>& categoryFiles);
 #endif

@@ -1,3 +1,11 @@
+/*
+ * main.cpp
+ * CS 202
+ * Bryan Beus
+ * April 12, 2020
+ * Main file for the data processing aspect of the CS 202 Group Project for Sarah and Bryan
+ */
+
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -25,52 +33,19 @@ using std::left;
 
 int main() {
 
-    string path = "../baseline-docs/";
+    /********************************************************************
+     * Process Category Names and Files
+    ********************************************************************/
     vector<string> categoryNames;
-    vector<string> categoryFiles;
-    for (const auto & entry : fs::directory_iterator(path)) {
-        string curr_category_name = entry.path();
-        size_t last_instance = curr_category_name.find_last_of('/');
-        curr_category_name = curr_category_name.substr((int)last_instance + 1, (int)curr_category_name.size());
-        cout << endl;
-        cout << "Current Category Name: " << curr_category_name << endl << endl;;
-
-        categoryNames.push_back(curr_category_name);
-        const auto next_path = entry.path();
-        string categoryfile;
-        for (const auto& nextList : fs::directory_iterator(next_path)) {
-            string nextPath = nextList.path();
-            cout << nextPath << endl;
-            ifstream fin_import(nextPath);
-
-            if (!fin_import) {
-                cout << "Error importing baseline doc" << endl;
-            }
-
-            while(true) {
-
-                string line;
-
-                getline(fin_import, line);
-
-                categoryfile += line;
-
-                if (fin_import.eof()) {
-                    break;
-                }
-            } 
-        }
-
-        cout << "Compact file size: " << categoryfile.size() << endl << endl;;
-        categoryFiles.push_back(categoryfile);
-    }
-
-    vector<string> baselineFileNames;
-    callBaselineFilenames(baselineFileNames);
+    vector<string> categoryFiles; 
+    captureCategories(categoryNames, categoryFiles);
 
     /********************************************************************
      * Process Baseline Files
     ********************************************************************/
+    vector<string> baselineFileNames;
+    callBaselineFilenames(baselineFileNames);
+
     vector< vector< pair< string, int>>> baselineFileData;
     processBaselineFiles(baselineFileData, baselineFileNames); 
 
