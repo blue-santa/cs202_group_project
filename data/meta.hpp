@@ -51,4 +51,10 @@ void processBaselineOutputFiles(const vector<string>& baselineFileNames, const v
 
 // Capture the category names and files for future processing
 void captureCategories(vector<string>& categoryNames, vector<string>& categoryFiles);
+
+// Perform analsysi on the baseline files using MeTA software
+void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const vector<string>& categoryFiles);
 #endif
+
+// Create the files for MeTA to analyze
+void createAnalysisFiles(const vector<string>& categoryNames, const vector<string>& categoryFiles);

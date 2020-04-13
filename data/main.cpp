@@ -34,39 +34,53 @@ using std::left;
 int main() {
 
     /********************************************************************
-     * Process Category Names and Files
+     * Capture Category Names and Files
     ********************************************************************/
     vector<string> categoryNames;
     vector<string> categoryFiles; 
     captureCategories(categoryNames, categoryFiles);
 
     /********************************************************************
+     * TODO: Create Analysis Dir
+    ********************************************************************/
+    createAnalysisFiles(categoryNames, categoryFiles);
+
+    /********************************************************************
+     * Process Category Names and Files
+    ********************************************************************/
+    performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
+
+    /********************************************************************
+     * TODO: Remove Analysis Dir
+    ********************************************************************/
+
+    /********************************************************************
      * Process Baseline Files
     ********************************************************************/
-    vector<string> baselineFileNames;
-    callBaselineFilenames(baselineFileNames);
+    // vector<string> baselineFileNames;
+    // callBaselineFilenames(baselineFileNames);
 
-    vector< vector< pair< string, int>>> baselineFileData;
-    processBaselineFiles(baselineFileData, baselineFileNames); 
+    // vector< vector< pair< string, int>>> baselineFileData;
+    // processBaselineFiles(baselineFileData, baselineFileNames); 
 
     /********************************************************************
      * Process Main File
     ********************************************************************/
-    vector< pair<string, int> > mainData; 
-    string inputFilename = "doc.stops.stems.freq.1.txt";
+    // vector< pair<string, int> > mainData; 
+    // string inputFilename = "doc.stops.stems.freq.1.txt";
 
-    processFile(inputFilename, mainData);
+    // processFile(inputFilename, mainData);
 
     /********************************************************************
      * Process Output Files for Each Baseline File
     ********************************************************************/
-    processBaselineOutputFiles(baselineFileNames, baselineFileData);
+    // processBaselineOutputFiles(baselineFileNames, baselineFileData);
 
     /********************************************************************
      * Process main output file
     ********************************************************************/
-    string mainOutputFile = "output.txt";
-    processOutputFile(mainOutputFile, mainData);
+    // string mainOutputFile = "output.txt";
+    // processOutputFile(mainOutputFile, mainData);
 
     return 0;
 }

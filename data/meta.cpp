@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iterator>
 #include <filesystem>
+#include <stdlib.h>
 
 #include "meta.hpp"
 
@@ -223,5 +224,43 @@ void captureCategories(vector<string>& categoryNames, vector<string>& categoryFi
         cout << "Compact file size: " << categoryfile.size() << endl << endl;;
         categoryFiles.push_back(categoryfile);
     }
+
+}
+
+// Create the files for MeTA to analyze
+void createAnalysisFiles(const vector<string>& categoryNames, const vector<string>& categoryFiles) {
+    string dir_path = "../baseline-docs/temp_analysis_dir";
+    fs::create_directory(dir_path);
+    for (size_t i = 0; i < categoryNames.size(); i++) {
+        string currentFilename = "../baseline-docs/temp_analysis_dir/" + categoryNames.at(i) + ".txt";
+        ofstream fout(currentFilename);
+
+        if (!fout) {
+            cout << "Error opening output file" << endl;
+            exit(0);
+        }
+
+        fout << categoryFiles.at(i) << endl;
+    }
+
+}
+
+// Perform analsysi on the baseline files using MeTA software
+void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const vector<string>& categoryFiles) {
+
+#ifdef _WIN32
+
+        cout << "This software is not yet prepared to process on Windows" << endl;
+
+#elif __unix__
+
+        // system("cd ../submodules/meta/build/ && ./profile config.toml ../../../baseline-docs/FILE_HERE.txt --stop ");
+
+
+            // ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.txt --stem
+            // ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.stems.txt --freq-unigram
+
+
+#endif
 
 }
