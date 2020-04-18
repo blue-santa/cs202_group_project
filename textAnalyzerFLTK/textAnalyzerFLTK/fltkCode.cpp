@@ -128,8 +128,8 @@ Fl_Window* CreateWindow(){
     quit -> callback(OnExitClicked_cb, (void*) win);
 
     browser->callback(browserClicked);
-    analyze->callback(textAnalysis_CB, (void*)PopupWindow());
-        
+    analyze->callback(textAnalysis_CB);
+    display->callback(textDisplay_cb, (void*)PopupWindow());
 
     
 
