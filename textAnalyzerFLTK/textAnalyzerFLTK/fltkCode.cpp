@@ -55,6 +55,10 @@ void browserClicked(Fl_Widget*, void* data){
 }
 
 void textAnalysis_CB(Fl_Widget*, void* data){
+    
+}
+
+void resultsDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
     std::string line;
@@ -73,10 +77,6 @@ void textAnalysis_CB(Fl_Widget*, void* data){
     buff = new Fl_Text_Buffer();
     reportDisp -> buffer(buff);
     buff->text(output.c_str());
-}
-
-void resultsDisplay_cb(Fl_Widget*, void* data){
-    
 }
 
 //Close window when "Exit" button is clicked
