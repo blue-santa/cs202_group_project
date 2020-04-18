@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B10E190244A7FDB009F724B /* libmeta-utf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B10E18F244A7FDB009F724B /* libmeta-utf.dylib */; };
+		3B10E194244A8030009F724B /* meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B10E191244A8030009F724B /* meta.cpp */; };
+		3B10E195244A8030009F724B /* analyzer-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B10E193244A8030009F724B /* analyzer-main.cpp */; };
 		3B1232BF240E12F4005E76E9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B1232BE240E12F4005E76E9 /* main.cpp */; };
 		3B1232C7240E13EB005E76E9 /* libfltk.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1232C6240E13EB005E76E9 /* libfltk.1.3.dylib */; };
 		3B1232CA240EDD6C005E76E9 /* fltkCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B1232C8240EDD6C005E76E9 /* fltkCode.cpp */; };
@@ -25,6 +28,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B10E18F244A7FDB009F724B /* libmeta-utf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libmeta-utf.dylib"; path = "../meta/build/lib/libmeta-utf.dylib"; sourceTree = "<group>"; };
+		3B10E191244A8030009F724B /* meta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meta.cpp; sourceTree = "<group>"; };
+		3B10E192244A8030009F724B /* meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = meta.hpp; sourceTree = "<group>"; };
+		3B10E193244A8030009F724B /* analyzer-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "analyzer-main.cpp"; sourceTree = "<group>"; };
 		3B1232BB240E12F4005E76E9 /* textAnalyzerFLTK */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = textAnalyzerFLTK; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B1232BE240E12F4005E76E9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3B1232C6240E13EB005E76E9 /* libfltk.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfltk.1.3.dylib; path = ../../../../usr/local/Cellar/fltk/1.3.5/lib/libfltk.1.3.dylib; sourceTree = "<group>"; };
@@ -37,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B10E190244A7FDB009F724B /* libmeta-utf.dylib in Frameworks */,
 				3B1232C7240E13EB005E76E9 /* libfltk.1.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +72,9 @@
 		3B1232BD240E12F4005E76E9 /* textAnalyzerFLTK */ = {
 			isa = PBXGroup;
 			children = (
+				3B10E193244A8030009F724B /* analyzer-main.cpp */,
+				3B10E191244A8030009F724B /* meta.cpp */,
+				3B10E192244A8030009F724B /* meta.hpp */,
 				3B1232BE240E12F4005E76E9 /* main.cpp */,
 				3B1232C8240EDD6C005E76E9 /* fltkCode.cpp */,
 				3B1232C9240EDD6C005E76E9 /* fltkCode.hpp */,
@@ -74,6 +85,7 @@
 		3B1232C5240E13EB005E76E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B10E18F244A7FDB009F724B /* libmeta-utf.dylib */,
 				3B1232C6240E13EB005E76E9 /* libfltk.1.3.dylib */,
 			);
 			name = Frameworks;
@@ -138,6 +150,8 @@
 			files = (
 				3B1232BF240E12F4005E76E9 /* main.cpp in Sources */,
 				3B1232CA240EDD6C005E76E9 /* fltkCode.cpp in Sources */,
+				3B10E195244A8030009F724B /* analyzer-main.cpp in Sources */,
+				3B10E194244A8030009F724B /* meta.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
