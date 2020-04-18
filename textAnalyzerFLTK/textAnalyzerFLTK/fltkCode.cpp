@@ -58,7 +58,7 @@ void textAnalysis_CB(Fl_Widget*, void* data){
     
 }
 
-void resultsDisplay_cb(Fl_Widget*, void* data){
+void textDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
     std::string line;
