@@ -18,7 +18,7 @@
 #include <sstream>
 
 #include "fltkCode.hpp"
-#include "meta.hpp"
+//#include "meta.hpp"
 
 //Fl_Native_File_Chooser* fileFind = nullptr;
 Fl_Box* progTitle = nullptr;
@@ -36,6 +36,7 @@ Fl_Text_Display* reportDisp = nullptr;
 Fl_Text_Buffer* buff = nullptr;
 
 std::string userFile;
+std::string processedFile;
 std::string output;
 
 void browserClicked(Fl_Widget*, void* data){
@@ -51,7 +52,21 @@ void browserClicked(Fl_Widget*, void* data){
     }
     std::string choice = fileChoice->value();
     std::istringstream is(choice);
+    std::istringstream clean(choice);
+    clean >> processedFile;
+    std::string end = ".txt";
+    std::string::size_type i = processedFile.find(end);
+    if(i != std::string::npos){
+        processedFile.erase(i, end.length());
+        processedFile += ".stops.stems.freq1.txt";
+    }
     is >> userFile;
+}
+
+std::string fileName(const std::string& file){
+    auto pd = file.find_last_of(".");
+    auto slsh = file.find_last_of("/");
+    return file.substr(slsh, pd);
 }
 
 void textAnalysis_CB(Fl_Widget*, void* data){
@@ -62,7 +77,7 @@ void textDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
     std::string line;
-    std::ifstream fin(userFile);
+    std::ifstream fin(processedFile);
     while(std::getline(fin, line)){
         if(!fin){
             if(fin.eof())

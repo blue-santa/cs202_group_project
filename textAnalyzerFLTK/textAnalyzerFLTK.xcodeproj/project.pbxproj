@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B10E190244A7FDB009F724B /* libmeta-utf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B10E18F244A7FDB009F724B /* libmeta-utf.dylib */; };
 		3B10E194244A8030009F724B /* meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B10E191244A8030009F724B /* meta.cpp */; };
 		3B10E195244A8030009F724B /* analyzer-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B10E193244A8030009F724B /* analyzer-main.cpp */; };
 		3B1232BF240E12F4005E76E9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B1232BE240E12F4005E76E9 /* main.cpp */; };
@@ -44,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B10E190244A7FDB009F724B /* libmeta-utf.dylib in Frameworks */,
 				3B1232C7240E13EB005E76E9 /* libfltk.1.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
