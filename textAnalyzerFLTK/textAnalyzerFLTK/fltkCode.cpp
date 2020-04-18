@@ -75,6 +75,10 @@ void textAnalysis_CB(Fl_Widget*, void* data){
     buff->text(output.c_str());
 }
 
+void resultsDisplay_cb(Fl_Widget*, void* data){
+    
+}
+
 //Close window when "Exit" button is clicked
 void OnExitClicked_cb(Fl_Widget* w, void* data){
     if(!data) return;
