@@ -18,6 +18,7 @@
 #include <sstream>
 
 #include "fltkCode.hpp"
+#include "meta.hpp"
 
 //Fl_Native_File_Chooser* fileFind = nullptr;
 Fl_Box* progTitle = nullptr;
@@ -27,6 +28,7 @@ Fl_Box* resultDisp = nullptr;
 Fl_Input* fileChoice = nullptr;
 Fl_Button* browser = nullptr;
 Fl_Button* analyze = nullptr;
+Fl_Button* display = nullptr;
 Fl_Button* close = nullptr;
 Fl_Button* quit = nullptr;
 Fl_Output* report = nullptr;
@@ -114,8 +116,9 @@ Fl_Window* CreateWindow(){
                               "for the file you wish to analyze.");
     
     fileChoice = new Fl_Input(175,200,500,45);
-    browser = new Fl_Button(50, 200, 100, 20, "Browse");
-    analyze = new Fl_Button(50, 225, 100, 20, "Analyze");
+    browser = new Fl_Button(50, 210, 100, 20, "Browse");
+    analyze = new Fl_Button(250, 250, 100, 20, "Analyze");
+    display = new Fl_Button(375, 250, 100, 20, "Display Results");
     quit = new Fl_Button(350, 275, 100, 20, "Exit");
     
     quit -> callback(OnExitClicked_cb, (void*) win);
