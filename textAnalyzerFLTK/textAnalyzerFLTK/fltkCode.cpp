@@ -18,7 +18,7 @@
 #include <sstream>
 
 #include "fltkCode.hpp"
-//#include "meta.hpp"
+#include "meta.hpp"
 
 //Fl_Native_File_Chooser* fileFind = nullptr;
 Fl_Box* progTitle = nullptr;
@@ -55,21 +55,36 @@ void browserClicked(Fl_Widget*, void* data){
     is >> userFile;
 }
 
-std::string fileName(const std::string& file){
+std::string fileNameNoExt(const std::string& file){
     auto pd = file.find_last_of(".");
     auto slsh = file.find_last_of("/");
     return file.substr(slsh, pd);
 }
 
 void textAnalysis_CB(Fl_Widget*, void* data){
-    
+    std::vector<string> categoryNames;
+    std::vector<string> categoryFiles;
+    /********************************************************************
+     * Capture Category Names and Files
+    ********************************************************************/
+    captureCategories(categoryNames, categoryFiles);
+
+    /********************************************************************
+     * Create Baseline Analysis Files
+    ********************************************************************/
+    createAnalysisFiles(categoryNames, categoryFiles);
+
+    /********************************************************************
+     * Perform MeTA Analysis on Baseline Analysis Files
+    ********************************************************************/
+    performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
 }
 
 void textDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
     std::string line;
-    std::ifstream fin(processedFile);
+    std::ifstream fin("output.txt");
     while(std::getline(fin, line)){
         if(!fin){
             if(fin.eof())
