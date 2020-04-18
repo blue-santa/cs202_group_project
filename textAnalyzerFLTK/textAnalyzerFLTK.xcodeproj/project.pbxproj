@@ -278,6 +278,7 @@
 					/usr/local,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.5/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "";
 			};
@@ -296,6 +297,7 @@
 					/usr/local,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.5/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "";
 			};

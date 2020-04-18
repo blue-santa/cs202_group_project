@@ -52,14 +52,6 @@ void browserClicked(Fl_Widget*, void* data){
     }
     std::string choice = fileChoice->value();
     std::istringstream is(choice);
-    std::istringstream clean(choice);
-    clean >> processedFile;
-    std::string end = ".txt";
-    std::string::size_type i = processedFile.find(end);
-    if(i != std::string::npos){
-        processedFile.erase(i, end.length());
-        processedFile += ".stops.stems.freq1.txt";
-    }
     is >> userFile;
 }
 
