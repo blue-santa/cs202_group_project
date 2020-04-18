@@ -26,6 +26,7 @@ Fl_Box* instructions = nullptr;
 Fl_Box* description = nullptr;
 Fl_Box* resultDisp = nullptr;
 Fl_Input* fileChoice = nullptr;
+Fl_Input* fileTitle = nullptr;
 Fl_Button* browser = nullptr;
 Fl_Button* analyze = nullptr;
 Fl_Button* display = nullptr;
@@ -84,7 +85,8 @@ void textDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
     std::string line;
-    std::ifstream fin("output.txt");
+    std::ifstream fin(userFile);
+    fileTitle->value(fileNameNoExt(userFile).c_str());
     while(std::getline(fin, line)){
         if(!fin){
             if(fin.eof())
@@ -115,6 +117,8 @@ Fl_Window* PopupWindow(){
     resultDisp = new Fl_Box(250,20,300,40, "Analysis Results");
     resultDisp->box(FL_UP_BOX);
     resultDisp->labelsize(20);
+    
+    fileTitle = new Fl_Input(250, 80, 300,40);
     
     reportDisp = new Fl_Text_Display(25, 160, 750, 300);
     close = new Fl_Button(350, 500, 100, 20, "Close");
