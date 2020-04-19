@@ -26,7 +26,7 @@ Fl_Box* instructions = nullptr;
 Fl_Box* description = nullptr;
 Fl_Box* resultDisp = nullptr;
 Fl_Input* fileChoice = nullptr;
-Fl_Input* fileTitle = nullptr;
+Fl_Output* fileTitle = nullptr;
 Fl_Button* browser = nullptr;
 Fl_Button* analyze = nullptr;
 Fl_Button* display = nullptr;
@@ -133,7 +133,9 @@ Fl_Window* PopupWindow(){
     resultDisp->box(FL_UP_BOX);
     resultDisp->labelsize(20);
     
-    fileTitle = new Fl_Input(250, 80, 300,40);
+    fileTitle = new Fl_Output(225, 80, 350, 40);
+    fileTitle->box(FL_UP_BOX);
+    fileTitle->textsize(16);
     
     reportDisp = new Fl_Text_Display(25, 160, 750, 300);
     close = new Fl_Button(350, 500, 100, 20, "Close");
