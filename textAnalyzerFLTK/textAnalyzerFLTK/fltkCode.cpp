@@ -56,11 +56,26 @@ void browserClicked(Fl_Widget*, void* data){
     is >> userFile;
 }
 
-std::string fileNameNoExt(const std::string& file){
-    auto pd = file.find_last_of(".");
+std::string fileNameNoExt(std::string& file){
+    std::string ext = ".stops.stems.freq.1.txt";
+    std::string::size_type i = file.find(ext);
+    if(i != std::string::npos)
+        file.erase(i, ext.length());
     auto slsh = file.find_last_of("/");
-    return file.substr(slsh, pd);
+    file = file.substr(slsh+1);
+    for(int i = 0; i < file.size(); i++){
+        if(file[i] == '-')
+            file[i] = ' ';
+    }
+    file[0] = toupper(file[0]);
+    for(int i = 0; i < file.size(); i++){
+        if(file[i]==' ' && file[i+1]!='\0')
+            file[i+1] = toupper(file[i+1]);
+    }
+    return file;
 }
+
+
 
 void textAnalysis_CB(Fl_Widget*, void* data){
     std::vector<string> categoryNames;
