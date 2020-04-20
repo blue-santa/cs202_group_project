@@ -286,7 +286,9 @@ void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const v
     for (size_t i = 0; i < categoryNames.size(); i++) {
 
         string command;
-        command += "cd ../submodules/meta/build/ && ls && pwd";
+        // command += "cd ../submodules/meta/build/ && ls && pwd";
+        command += "cd ../submodules/meta/build/ ";
+        command += "&& ./unit-test --reporter=spec";
         // command += "cd ../submodules/meta/build/ ";
         // command += "&& ./profile config.toml ../../../baseline-docs/temp_analysis_dir/";
         // command += categoryFiles.at(i);
