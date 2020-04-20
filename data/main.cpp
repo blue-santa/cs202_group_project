@@ -65,11 +65,11 @@ int main() {
     /********************************************************************
      * Process Baseline Files
     ********************************************************************/
-    // vector<string> baselineFileNames;
-    // callBaselineFilenames(baselineFileNames);
+    vector<string> baselineFileNames;
+    callBaselineFilenames(baselineFileNames);
 
-    // vector< vector< pair< string, int>>> baselineFileData;
-    // processBaselineFiles(baselineFileData, baselineFileNames); 
+    vector< vector< pair< string, int>>> baselineFileData;
+    processBaselineFiles(baselineFileData, baselineFileNames); 
 
     /********************************************************************
      * Process Main File
@@ -82,7 +82,7 @@ int main() {
     /********************************************************************
      * Process Output Files for Each Baseline File
     ********************************************************************/
-    // processBaselineOutputFiles(baselineFileNames, baselineFileData);
+    processBaselineOutputFiles(baselineFileNames, baselineFileData);
 
     /********************************************************************
      * Process main output file
@@ -95,6 +95,8 @@ int main() {
     ********************************************************************/
 
     removeTempAnalysisDir();
+
+
     cout << endl;
     cout << string(40, '-') << endl;
     cout << "Closing" << endl;

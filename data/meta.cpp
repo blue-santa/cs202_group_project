@@ -28,29 +28,16 @@ namespace fs = std::filesystem;
 
 // Import the list of filenames for the baseline files and add to a vector for later usage
 void callBaselineFilenames(vector<string>& baselineFileNames) {
-    string listFile = "../baseline-docs/list.txt";
-    ifstream fin(listFile);
 
-    if (!fin) {
-        cout << "Error loading baseline file list" << endl;
-        exit(0);
+    string path = "../baseline-docs/temp_analysis_dir/"; 
+    for (const auto & entry : fs::directory_iterator(path)) {
+        string curr_file = entry.path();
+        
+        if (curr_file.find("freq.1.txt") == string::npos) continue;
+
+        baselineFileNames.push_back(curr_file); 
     }
 
-    while (true) {
-
-        string line; 
-        getline(fin, line); 
-
-        if (line == "") {
-            break;
-        }
-
-        baselineFileNames.push_back(line); 
-
-        if (fin.eof()) {
-            break;
-        }
-    }
 }
 
 // Import the data from the provided inputFilename file and process it into a prettier format that only contains recognizable words
@@ -119,7 +106,7 @@ void processBaselineFiles(vector< vector< pair< string, int>>>& baselineFileData
 
     for (size_t i = 0; i < baselineFileNames.size(); i++) { 
         vector< pair< string, int>> data;
-        string currentFilename = "../baseline-docs/" + baselineFileNames.at(i);
+        string currentFilename = baselineFileNames.at(i);
 
         processFile(currentFilename, data);
         baselineFileData.push_back(data);
@@ -157,7 +144,7 @@ void processOutputFile(const string& filename, const vector< pair< string, int>>
 // Process each baseline file
 void processBaselineOutputFiles(const vector<string>& baselineFileNames, const vector< vector< pair< string, int>>>& baselineFileData) {
     for (size_t i = 0; i < baselineFileNames.size(); i++) {
-        string filename = "./output/" + baselineFileNames.at(i);
+        string filename = baselineFileNames.at(i);
         vector< pair< string, int>> data = baselineFileData.at(i);
 
         processOutputFile(filename, data); 
