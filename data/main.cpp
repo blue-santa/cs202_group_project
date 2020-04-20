@@ -32,6 +32,8 @@ using std::setw;
 using std::right;
 using std::left;
 
+namespace fs = std::filesystem;
+
 int main() {
 
     clearConsole();
@@ -62,6 +64,8 @@ int main() {
     /********************************************************************
      * TODO: Remove Analysis Dir
     ********************************************************************/
+
+    fs::remove_all("../baseline-docs/temp_analysis_dir/");
 
     /********************************************************************
      * Process Baseline Files
