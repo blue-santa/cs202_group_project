@@ -16,6 +16,7 @@
 #include <filesystem>
 
 #include "meta.hpp"
+#include "Miscellaneous.hpp"
 
 using std::cin;
 using std::cout;
@@ -32,6 +33,8 @@ using std::right;
 using std::left;
 
 int main() {
+
+    clearConsole();
 
     cout << endl;
     cout << string(40, '-') << endl;

@@ -288,11 +288,11 @@ void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const v
         string command;
         // command += "cd ../submodules/meta/build/ && ls && pwd";
         command += "cd ../submodules/meta/build/ ";
-        command += "&& ./unit-test --reporter=spec";
+        // command += "&& ./unit-test --reporter=spec";
         // command += "cd ../submodules/meta/build/ ";
-        // command += "&& ./profile config.toml ../../../baseline-docs/temp_analysis_dir/";
-        // command += categoryFiles.at(i);
-        // command += ".txt --stop";
+        command += "&& ./profile config.toml ../../../baseline-docs/temp_analysis_dir/";
+        command += categoryNames.at(i);
+        command += ".txt --stop";
 
         string res = exec(command.c_str());
         cout << res << endl;
