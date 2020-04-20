@@ -16,6 +16,7 @@
 #include <filesystem>
 
 #include "meta.hpp"
+#include "Miscellaneous.hpp"
 
 using std::cin;
 using std::cout;
@@ -31,7 +32,11 @@ using std::setw;
 using std::right;
 using std::left;
 
+namespace fs = std::filesystem;
+
 int main() {
+
+    clearConsole();
 
     cout << endl;
     cout << string(40, '-') << endl;
@@ -56,18 +61,15 @@ int main() {
     ********************************************************************/
     performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
 
-    /********************************************************************
-     * TODO: Remove Analysis Dir
-    ********************************************************************/
 
     /********************************************************************
      * Process Baseline Files
     ********************************************************************/
-    // vector<string> baselineFileNames;
-    // callBaselineFilenames(baselineFileNames);
+    vector<string> baselineFileNames;
+    callBaselineFilenames(baselineFileNames);
 
-    // vector< vector< pair< string, int>>> baselineFileData;
-    // processBaselineFiles(baselineFileData, baselineFileNames); 
+    vector< vector< pair< string, int>>> baselineFileData;
+    processBaselineFiles(baselineFileData, baselineFileNames); 
 
     /********************************************************************
      * Process Main File
@@ -80,13 +82,20 @@ int main() {
     /********************************************************************
      * Process Output Files for Each Baseline File
     ********************************************************************/
-    // processBaselineOutputFiles(baselineFileNames, baselineFileData);
+    processBaselineOutputFiles(baselineFileNames, baselineFileData);
 
     /********************************************************************
      * Process main output file
     ********************************************************************/
     // string mainOutputFile = "output.txt";
     // processOutputFile(mainOutputFile, mainData);
+
+    /********************************************************************
+     * Remove Analysis Dir
+    ********************************************************************/
+
+    removeTempAnalysisDir();
+
 
     cout << endl;
     cout << string(40, '-') << endl;

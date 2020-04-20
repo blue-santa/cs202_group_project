@@ -58,3 +58,6 @@ void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const v
 
 // Create the files for MeTA to analyze
 void createAnalysisFiles(const vector<string>& categoryNames, const vector<string>& categoryFiles);
+
+// Remove the temporary analysis directory
+void removeTempAnalysisDir();
