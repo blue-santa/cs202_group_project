@@ -61,11 +61,6 @@ int main() {
     ********************************************************************/
     performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
 
-    /********************************************************************
-     * TODO: Remove Analysis Dir
-    ********************************************************************/
-
-    fs::remove_all("../baseline-docs/temp_analysis_dir/");
 
     /********************************************************************
      * Process Baseline Files
@@ -95,6 +90,11 @@ int main() {
     // string mainOutputFile = "output.txt";
     // processOutputFile(mainOutputFile, mainData);
 
+    /********************************************************************
+     * Remove Analysis Dir
+    ********************************************************************/
+
+    removeTempAnalysisDir();
     cout << endl;
     cout << string(40, '-') << endl;
     cout << "Closing" << endl;

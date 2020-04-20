@@ -286,20 +286,38 @@ void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const v
     for (size_t i = 0; i < categoryNames.size(); i++) {
 
         string command;
-        // command += "cd ../submodules/meta/build/ && ls && pwd";
         command += "cd ../submodules/meta/build/ ";
-        // command += "&& ./unit-test --reporter=spec";
-        // command += "cd ../submodules/meta/build/ ";
         command += "&& ./profile config.toml ../../../baseline-docs/temp_analysis_dir/";
         command += categoryNames.at(i);
-        command += ".txt --stop";
+
+        string stopCmd = ".txt --stop";
+        size_t stopLen = stopCmd.size();
+        command += stopCmd;
 
         string res = exec(command.c_str());
         cout << res << endl;
 
-            // ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.txt --stem
-            // ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.stems.txt --freq-unigram
+        command = command.substr(0, command.size() - stopLen);
+        string stemCmd = ".stops.txt --stem";
+        size_t stemLen = stemCmd.size();
+        command += stemCmd;
+
+        res = exec(command.c_str());
+        cout << res << endl;
+
+        command = command.substr(0, command.size() - stemLen);
+        string freqCmd = ".stops.stems.txt --freq-unigram";
+        // size_t freqLen = freqCmd.size();
+        command += freqCmd;
+
+        res = exec(command.c_str());
+        cout << res << endl;
 
     }
 
+}
+
+// Remove the temporary analysis directory
+void removeTempAnalysisDir() { 
+    fs::remove_all("../baseline-docs/temp_analysis_dir/");
 }
