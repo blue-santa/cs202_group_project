@@ -18,6 +18,7 @@
 #include <sstream>
 
 #include "fltkCode.hpp"
+#include "meta.hpp"
 
 //Fl_Native_File_Chooser* fileFind = nullptr;
 Fl_Box* progTitle = nullptr;
@@ -25,8 +26,10 @@ Fl_Box* instructions = nullptr;
 Fl_Box* description = nullptr;
 Fl_Box* resultDisp = nullptr;
 Fl_Input* fileChoice = nullptr;
+Fl_Output* fileTitle = nullptr;
 Fl_Button* browser = nullptr;
 Fl_Button* analyze = nullptr;
+Fl_Button* display = nullptr;
 Fl_Button* close = nullptr;
 Fl_Button* quit = nullptr;
 Fl_Output* report = nullptr;
@@ -34,6 +37,7 @@ Fl_Text_Display* reportDisp = nullptr;
 Fl_Text_Buffer* buff = nullptr;
 
 std::string userFile;
+std::string processedFile;
 std::string output;
 
 void browserClicked(Fl_Widget*, void* data){
@@ -52,11 +56,52 @@ void browserClicked(Fl_Widget*, void* data){
     is >> userFile;
 }
 
+std::string fileNameNoExt(std::string& file){
+    std::string ext = ".stops.stems.freq.1.txt";
+    std::string::size_type i = file.find(ext);
+    if(i != std::string::npos)
+        file.erase(i, ext.length());
+    auto slsh = file.find_last_of("/");
+    file = file.substr(slsh+1);
+    for(int i = 0; i < file.size(); i++){
+        if(file[i] == '-')
+            file[i] = ' ';
+    }
+    file[0] = toupper(file[0]);
+    for(int i = 0; i < file.size(); i++){
+        if(file[i]==' ' && file[i+1]!='\0')
+            file[i+1] = toupper(file[i+1]);
+    }
+    return file;
+}
+
+
+
 void textAnalysis_CB(Fl_Widget*, void* data){
+    std::vector<string> categoryNames;
+    std::vector<string> categoryFiles;
+    /********************************************************************
+     * Capture Category Names and Files
+    ********************************************************************/
+    captureCategories(categoryNames, categoryFiles);
+
+    /********************************************************************
+     * Create Baseline Analysis Files
+    ********************************************************************/
+    createAnalysisFiles(categoryNames, categoryFiles);
+
+    /********************************************************************
+     * Perform MeTA Analysis on Baseline Analysis Files
+    ********************************************************************/
+    performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
+}
+
+void textDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
     std::string line;
     std::ifstream fin(userFile);
+    fileTitle->value(fileNameNoExt(userFile).c_str());
     while(std::getline(fin, line)){
         if(!fin){
             if(fin.eof())
@@ -88,6 +133,10 @@ Fl_Window* PopupWindow(){
     resultDisp->box(FL_UP_BOX);
     resultDisp->labelsize(20);
     
+    fileTitle = new Fl_Output(225, 80, 350, 40);
+    fileTitle->box(FL_UP_BOX);
+    fileTitle->textsize(16);
+    
     reportDisp = new Fl_Text_Display(25, 160, 750, 300);
     close = new Fl_Button(350, 500, 100, 20, "Close");
     
@@ -114,15 +163,16 @@ Fl_Window* CreateWindow(){
                               "for the file you wish to analyze.");
     
     fileChoice = new Fl_Input(175,200,500,45);
-    browser = new Fl_Button(50, 200, 100, 20, "Browse");
-    analyze = new Fl_Button(50, 225, 100, 20, "Analyze");
+    browser = new Fl_Button(50, 210, 100, 20, "Browse");
+    analyze = new Fl_Button(250, 250, 100, 20, "Analyze");
+    display = new Fl_Button(375, 250, 100, 20, "Display Results");
     quit = new Fl_Button(350, 275, 100, 20, "Exit");
     
     quit -> callback(OnExitClicked_cb, (void*) win);
 
     browser->callback(browserClicked);
-    analyze->callback(textAnalysis_CB, (void*)PopupWindow());
-        
+    analyze->callback(textAnalysis_CB);
+    display->callback(textDisplay_cb, (void*)PopupWindow());
 
     
 
