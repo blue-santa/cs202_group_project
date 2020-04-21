@@ -248,38 +248,44 @@ void createAnalysisFiles(const vector<string>& categoryNames, const vector<strin
 }
 
 // Execute a command on the command line and return the result
-//string exec(const char* cmd) {
-//
-//    char buffer[128];
-//    std::string result = "";
-//
-//#ifdef _WIN32
-//    FILE* pipe = _popen(cmd, "r");
-//#elif __unix__
-//    FILE* pipe = popen(cmd, "r");
-//#endif
-//
-//    if (!pipe) throw std::runtime_error("popen() failed!");
-//    try {
-//        while (fgets(buffer, sizeof buffer, pipe) != NULL) {
-//            result += buffer;
-//        }
-//    } catch (...)
-//    {
-//#ifdef _WIN32
-//        _pclose(pipe);
-//#elif __unix__
-//        pclose(pipe);
-//#endif
-//        throw;
-//    }
-//#ifdef _WIN32
-//    _pclose(pipe);
-//#elif __unix__
-//    pclose(pipe);
-//#endif
-//    return result;
-//}
+string exec(const char* cmd) {
+
+    char buffer[128];
+    std::string result = "";
+
+#ifdef _WIN32
+    FILE* pipe = _popen(cmd, "r");
+#elif __unix__
+    FILE* pipe = popen(cmd, "r");
+#elif __APPLE__
+    FILE* pipe = popen(cmd, "r");
+#endif
+
+    if (!pipe) throw std::runtime_error("popen() failed!");
+    try {
+        while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+            result += buffer;
+        }
+    } catch (...)
+    {
+#ifdef _WIN32
+        _pclose(pipe);
+#elif __unix__
+        pclose(pipe);
+#elif __APPLE__
+        pclose(pipe);
+#endif
+        throw;
+    }
+#ifdef _WIN32
+    _pclose(pipe);
+#elif __unix__
+    pclose(pipe);
+#elif __APPLE__
+    pclose(pipe);
+#endif
+    return result;
+}
 
 // Perform analsysi on the baseline files using MeTA software
 void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const vector<string>& categoryFiles) {
@@ -288,16 +294,20 @@ void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const v
 
         string command;
         command += "cd ../../meta/build/";
-//         command += "cd ../submodules/meta/build/ ";
-         command += "&& ./profile config.toml ../../../textAnalyzerFLTK/baseline-docs/temp_analysis_dir/";
-         command += categoryFiles.at(i);
-         command += ".txt --stop";
+    //         command += "cd ../submodules/meta/build/ ";
+        command += "&& ./profile config.toml ../../textAnalyzerFLTK/baseline-docs/temp_analysis_dir/";
+        command += categoryNames.at(i);
 
+        command += ".txt --stop --stem --freq-unigram";
 //        string res = exec(command.c_str());
-//        cout << res << endl;
+//        command += " --stem";
+//        res += exec(command.c_str());
+//        command += " --freq-unigram";
+        std::cout << command << std::endl;
+        string res = exec(command.c_str());
+        cout << res << endl;
 
-//             ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.txt --stem
-//             ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.stems.txt --freq-unigram
+    //             ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.stems.txt --freq-unigram
 
     }
 
