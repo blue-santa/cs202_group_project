@@ -58,7 +58,8 @@ void browserClicked(Fl_Widget*, void* data){
 }
 
 std::string fileNameNoExt(std::string& file){
-    std::string ext = ".stops.stems.freq.1.txt";
+    auto pd = file.find_first_of(".");
+    std::string ext = file.substr(pd);
     std::string::size_type i = file.find(ext);
     if(i != std::string::npos)
         file.erase(i, ext.length());
