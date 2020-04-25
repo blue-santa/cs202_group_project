@@ -100,6 +100,7 @@ void textAnalysisBase_CB(Fl_Widget*, void* data){
 void textDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
+    output.clear();
     std::string line;
     std::ifstream fin(userFile);
     fileTitle->value(fileNameNoExt(userFile).c_str());
