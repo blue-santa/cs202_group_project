@@ -167,8 +167,16 @@ Fl_Window* CreateWindow(){
     browser = new Fl_Button(50, 117, 100, 20, "Browse");
     analyzeBase = new Fl_Button(250, 145, 160, 20, "Analyze Base Files");
     analyzeChoice = new Fl_Button(415, 145, 160, 20, "Analyze Chosen File");
-    display = new Fl_Button(375, 250, 125, 20, "Display Results");
-    quit = new Fl_Button(350, 275, 100, 20, "Exit");
+    
+    display = new Fl_Button(340, 170, 140, 30, "Display Results");
+    display->color(FL_DARK_CYAN);
+    display->labelsize(16);
+    display->labelfont(FL_BOLD);
+    
+    quit = new Fl_Button(350, 265, 120, 30, "Exit");
+    quit->color(FL_RED);
+    quit->labelsize(20);
+    quit->labelfont(FL_BOLD);
     
     quit -> callback(OnExitClicked_cb, (void*) win);
 
