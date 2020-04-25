@@ -26,7 +26,7 @@ Fl_Box* instructions = nullptr;
 Fl_Box* description = nullptr;
 Fl_Box* resultDisp = nullptr;
 Fl_Input* fileChoice = nullptr;
-Fl_Output* fileTitle = nullptr;
+Fl_Input* fileTitle = nullptr;
 Fl_Button* browser = nullptr;
 Fl_Button* analyzeBase = nullptr;
 Fl_Button* analyzeChoice = nullptr;
@@ -136,7 +136,7 @@ Fl_Window* PopupWindow(){
     resultDisp->box(FL_UP_BOX);
     resultDisp->labelsize(20);
     
-    fileTitle = new Fl_Output(225, 80, 350, 40);
+    fileTitle = new Fl_Input(225, 80, 350, 40);
     fileTitle->box(FL_UP_BOX);
     fileTitle->textsize(16);
     
