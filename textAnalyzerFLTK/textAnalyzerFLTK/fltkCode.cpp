@@ -28,7 +28,8 @@ Fl_Box* resultDisp = nullptr;
 Fl_Input* fileChoice = nullptr;
 Fl_Output* fileTitle = nullptr;
 Fl_Button* browser = nullptr;
-Fl_Button* analyze = nullptr;
+Fl_Button* analyzeBase = nullptr;
+Fl_Button* analyzeChoice = nullptr;
 Fl_Button* display = nullptr;
 Fl_Button* close = nullptr;
 Fl_Button* quit = nullptr;
@@ -77,7 +78,7 @@ std::string fileNameNoExt(std::string& file){
 
 
 
-void textAnalysis_CB(Fl_Widget*, void* data){
+void textAnalysisBase_CB(Fl_Widget*, void* data){
     std::vector<string> categoryNames;
     std::vector<string> categoryFiles;
     /********************************************************************
@@ -147,31 +148,32 @@ Fl_Window* PopupWindow(){
 }
 
 Fl_Window* CreateWindow(){
-    Fl_Window* win = new Fl_Window(800, 300, "");
+    Fl_Window* win = new Fl_Window(800, 300, "Text Analyzer");
     win->begin();
     
-    progTitle = new Fl_Box(275,10,250, 50, "Text Analyzer");
-    progTitle->box(FL_UP_BOX);
-    progTitle->labelsize(24);
+//    progTitle = new Fl_Box(275,10,250, 50, "Text Analyzer");
+//    progTitle->box(FL_UP_BOX);
+//    progTitle->labelsize(24);
     
-    description = new Fl_Box(100,70,600,50, "This program will take a text that you select"
+    description = new Fl_Box(100,10,600,50, "This program will take a text that you select"
                                            " and analyze the content for frequency \nof "
                              "specific words to categorize the text for you.");
     description->labelsize(14);
     
-    instructions = new Fl_Box(175, 155, 500, 40, "Click the \"Browse\" button to search "
+    instructions = new Fl_Box(175, 65, 500, 40, "Click the \"Browse\" button to search "
                               "for the file you wish to analyze.");
     
-    fileChoice = new Fl_Input(175,200,500,45);
-    browser = new Fl_Button(50, 210, 100, 20, "Browse");
-    analyze = new Fl_Button(250, 250, 100, 20, "Analyze");
-    display = new Fl_Button(375, 250, 100, 20, "Display Results");
+    fileChoice = new Fl_Input(175,115,500,25);
+    browser = new Fl_Button(50, 117, 100, 20, "Browse");
+    analyzeBase = new Fl_Button(250, 145, 160, 20, "Analyze Base Files");
+    analyzeChoice = new Fl_Button(415, 145, 160, 20, "Analyze Chosen File");
+    display = new Fl_Button(375, 250, 125, 20, "Display Results");
     quit = new Fl_Button(350, 275, 100, 20, "Exit");
     
     quit -> callback(OnExitClicked_cb, (void*) win);
 
     browser->callback(browserClicked);
-    analyze->callback(textAnalysis_CB);
+    analyzeBase->callback(textAnalysisBase_CB);
     display->callback(textDisplay_cb, (void*)PopupWindow());
 
     
