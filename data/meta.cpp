@@ -114,8 +114,8 @@ void processAnyFile(const string& filename) {
     cout << res << endl;
 
     vector< pair< string, int>> data;
-    string freqName = temp_filename + ".stop.stem.freq.1.txt";
-    processFile(temp_filename, data);
+    string freqName = temp_filename + ".stops.stems.freq.1.txt";
+    processFile("./" + freqName, data);
 
     processOutputFile("./user_output.txt", data);
 

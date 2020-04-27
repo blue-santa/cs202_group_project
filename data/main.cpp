@@ -48,54 +48,54 @@ int main() {
     /********************************************************************
      * Capture Category Names and Files
     ********************************************************************/
-    vector<string> categoryNames;
-    vector<string> categoryFiles; 
-    captureCategories(categoryNames, categoryFiles);
+    // vector<string> categoryNames;
+    // vector<string> categoryFiles; 
+    // captureCategories(categoryNames, categoryFiles);
 
     /********************************************************************
      * Create Baseline Analysis Files
     ********************************************************************/
-    createAnalysisFiles(categoryNames, categoryFiles);
+    // createAnalysisFiles(categoryNames, categoryFiles);
 
     /********************************************************************
      * Perform MeTA Analysis on Baseline Analysis Files
     ********************************************************************/
-    performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
+    // performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
 
 
     /********************************************************************
      * Process Baseline Files
     ********************************************************************/
-    vector<string> baselineFileNames;
-    callBaselineFilenames(baselineFileNames);
+    // vector<string> baselineFileNames;
+    // callBaselineFilenames(baselineFileNames);
 
-    vector< vector< pair< string, int>>> baselineFileData;
-    processBaselineFiles(baselineFileData, baselineFileNames); 
+    // vector< vector< pair< string, int>>> baselineFileData;
+    // processBaselineFiles(baselineFileData, baselineFileNames); 
 
     /********************************************************************
      * Process Main File
     ********************************************************************/
-    // vector< pair<string, int> > mainData; 
-    // string inputFilename = "doc.stops.stems.freq.1.txt";
+    // // vector< pair<string, int> > mainData; 
+    // // string inputFilename = "doc.stops.stems.freq.1.txt";
 
-    // processFile(inputFilename, mainData);
+    // // processFile(inputFilename, mainData);
 
     /********************************************************************
      * Process Output Files for Each Baseline File
     ********************************************************************/
-    processBaselineOutputFiles(baselineFileNames, baselineFileData);
+    // processBaselineOutputFiles(baselineFileNames, baselineFileData);
 
     /********************************************************************
      * Process main output file
     ********************************************************************/
-    // string mainOutputFile = "output.txt";
-    // processOutputFile(mainOutputFile, mainData);
+    // // string mainOutputFile = "output.txt";
+    // // processOutputFile(mainOutputFile, mainData);
 
     /********************************************************************
      * Remove Analysis Dir
     ********************************************************************/
 
-    removeTempAnalysisDir();
+    // removeTempAnalysisDir();
 
     string anyfile = "../baseline-docs/categories/fiction/cat-and-mouse.txt";
     processAnyFile(anyfile);
