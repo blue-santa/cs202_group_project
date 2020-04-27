@@ -2,3 +2,7 @@
 	path = submodules/meta
 	url = git@github.com:siddhartha-crypto/meta.git
     ignore = all
+[submodule "submodules/bandit"]
+	path = submodules/bandit
+	url = https://github.com/banditcpp/bandit
+	branch = headers-only

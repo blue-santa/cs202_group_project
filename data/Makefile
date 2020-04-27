@@ -4,8 +4,8 @@ HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
 LD = g++
 CXX = g++
-CXXFLAGS = -std=c++17 -g -Wall -Wfatal-errors -Iinclude -DGL_SILENCE_DEPRECATION -I.
-LDFLAGS = 
+CXXFLAGS = -std=c++17 -g -Wall -Wfatal-errors -Iinclude -DGL_SILENCE_DEPRECATION -I..  -L../submodules/meta/build/lib/ -I../submodules/meta/include/analyzers/ -I../submodules/meta/include/meta/analyzers -I../submodules/meta/include/meta -I../submodules/meta/include/meta/corpus -I../submodules/meta/include -I../submodules/meta/build/ -I../submodules/meta/deps/cpptoml/include -I../submodules/meta/include/meta/learn/loss/ -I../submodules/meta/include/meta/caching/ -I../submodules/meta/include/meta/features/ -I../submodules/meta/include/meta/analyzers/filters/ -I../submodules/meta/include/meta/analyzers/ -I../submodules/meta/include/meta/classify/kernel/ -I../submodules/meta/include/meta/classify/classifier/ -I../submodules/meta/include/meta/corpus/ -I../submodules/meta/include/meta/parser/analyzers/featurizers/ -I../submodules/meta/include/meta/index/ranker/ -I../submodules/meta/tests/ -I../submodules/meta/io/ -I../submodules/meta/build/util/ -I../submodules/
+LDFLAGS =  
 
 .PHONY: all clean
 
