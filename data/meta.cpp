@@ -26,6 +26,60 @@ using std::left;
 
 namespace fs = std::filesystem;
 
+string captureFileContent(ifstream& fin_import) { 
+    bool startActivated = false;
+    bool endActivated = false;
+
+    string categoryfile = "";
+    while(true) {
+
+        string line;
+
+        getline(fin_import, line);
+
+        if (line.find("END OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("END OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
+            endActivated = !endActivated;
+            // cout << "Deactivating: " << nextPath << endl;
+        }
+
+        if (startActivated && !endActivated) {
+            categoryfile += line;
+            categoryfile += "\n";
+        }
+
+        if (line.find("START OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("START OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
+            startActivated = !startActivated;
+            // cout << "Activating: " << nextPath << endl;
+        }
+
+
+        if (fin_import.eof()) {
+            break;
+        } 
+    } 
+
+    if (categoryfile.length() == 0) {
+        cout << "File provided is empty, invalid, or is not a Project Gutenberg file" << endl;
+        exit(0);
+    }
+
+    return categoryfile;
+}
+
+void processAnyFile(const string& filename) {
+
+    ifstream fin(filename);
+
+    if (!fin) {
+        cout << "Error importing file" << endl;
+        exit(0);
+    }
+
+    string data = "";
+
+    string line;
+}
+
 // Import the list of filenames for the baseline files and add to a vector for later usage
 void callBaselineFilenames(vector<string>& baselineFileNames) {
 

@@ -14,15 +14,6 @@
 #include <iostream>
 #include <iterator>
 #include <filesystem>
-#include <analyzer.h>
-
-#include <analyzers/all.h>
-#include <analyzers/token_stream.h>
-#include <document.h>
-#include <create_config.h>
-#include <bandit/bandit.h>
-#include <io/filesystem.h>
-#include <util/shim.h>
 
 #include "meta.hpp"
 
@@ -44,49 +35,9 @@ using std::left;
 
 namespace fs = std::filesystem;
 
-using namespace meta;
-using namespace bandit;
-
-namespace {
-
-std::unique_ptr<analyzers::token_stream> make_filter() {
-    using namespace analyzers;
-    auto line_cfg = tests::create_config("line");
-    return analyzers::default_filter_chain(*line_cfg);
-}
-
-template <class Analyzer>
-void check_analyzer_expected(Analyzer& ana, corpus::document doc,
-                             uint64_t num_unique, uint64_t length) {
-    auto counts = ana.template analyze<uint64_t>(doc);
-    // AssertThat(counts.size(), Equals(num_unique));
-
-    auto total = std::accumulate(
-        counts.begin(), counts.end(), uint64_t{0},
-        [](uint64_t acc,
-           const hashing::kv_pair<std::string, uint64_t>& count) {
-            return acc + count.value();
-        });
-
-    // AssertThat(total, Equals(length));
-    // AssertThat(doc.id(), Equals(47ul));
-}
-}
-
 int main() {
 
     clearConsole();
-    corpus::document doc{doc_id{47}};
-    std::string content = "one one two two two three four one five";
-    doc.content(content);
-    // corpus::document doc(doc_id{47});
-
-    // my_doc.document();
-
-    // my_doc.content("content", "utf-8");
-    // cout << my_doc.id() << endl;
-
-    return 0;
 
     cout << endl;
     cout << string(40, '-') << endl;
@@ -145,6 +96,9 @@ int main() {
     ********************************************************************/
 
     removeTempAnalysisDir();
+
+    string anyfile = "";
+    processAnyFile(anyfile);
 
 
     cout << endl;
