@@ -26,6 +26,7 @@ using std::left;
 
 namespace fs = std::filesystem;
 
+// Capture file content
 string captureFileContent(ifstream& fin_import) { 
     bool startActivated = false;
     bool endActivated = false;
@@ -75,9 +76,49 @@ void processAnyFile(const string& filename) {
         exit(0);
     }
 
-    string data = "";
+    string content = captureFileContent(fin);
 
-    string line;
+    string temp_filename = "user_data";
+    ofstream fout("./" + temp_filename + ".txt");
+
+    if (!fout) {
+        cout << "Error opening temporary file" << endl;
+    }
+
+    fout << content << endl;
+
+    string command;
+    command += "cd ../submodules/meta/build/ ";
+    command += "&& ./profile config.toml ../../../data/" + temp_filename;
+
+    string stopCmd = ".txt --stop";
+    size_t stopLen = stopCmd.size();
+    command += stopCmd;
+
+    string res = exec(command.c_str());
+    cout << res << endl;
+
+    command = command.substr(0, command.size() - stopLen);
+    string stemCmd = ".stops.txt --stem";
+    size_t stemLen = stemCmd.size();
+    command += stemCmd;
+
+    res = exec(command.c_str());
+    cout << res << endl;
+
+    command = command.substr(0, command.size() - stemLen);
+    string freqCmd = ".stops.stems.txt --freq-unigram";
+    command += freqCmd;
+
+    res = exec(command.c_str());
+    cout << res << endl;
+
+    vector< pair< string, int>> data;
+    string freqName = temp_filename + ".stop.stem.freq.1.txt";
+    processFile(temp_filename, data);
+
+    processOutputFile("./user_output.txt", data);
+
 }
 
 // Import the list of filenames for the baseline files and add to a vector for later usage

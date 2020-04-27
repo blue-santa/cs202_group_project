@@ -97,7 +97,7 @@ int main() {
 
     removeTempAnalysisDir();
 
-    string anyfile = "";
+    string anyfile = "../baseline-docs/categories/fiction/cat-and-mouse.txt";
     processAnyFile(anyfile);
 
 

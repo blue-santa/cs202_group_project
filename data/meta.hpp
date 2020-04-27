@@ -34,11 +34,14 @@ using std::left;
 
 namespace fs = std::filesystem;
 
+// Execute command on commandline
+string exec(const char* cmd);
+
 // Capture file content
 string captureFileContent(ifstream& fin_import);
 
 // Process any provided file
-string processAnyFile(const string& filename);
+void processAnyFile(const string& filename);
 
 // Import the list of filenames for the baseline files and add to a vector for later usage
 void callBaselineFilenames(vector<string>& baselineFileNames);
