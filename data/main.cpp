@@ -25,6 +25,7 @@
 #include <util/shim.h>
 
 #include "meta.hpp"
+
 #include "Miscellaneous.hpp"
 
 using std::cin;
@@ -76,7 +77,8 @@ int main() {
 
     clearConsole();
     corpus::document doc{doc_id{47}};
-
+    std::string content = "one one two two two three four one five";
+    doc.content(content);
     // corpus::document doc(doc_id{47});
 
     // my_doc.document();
