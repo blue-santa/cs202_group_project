@@ -26,31 +26,113 @@ using std::left;
 
 namespace fs = std::filesystem;
 
-// Import the list of filenames for the baseline files and add to a vector for later usage
-void callBaselineFilenames(vector<string>& baselineFileNames) {
-    string listFile = "../baseline-docs/list.txt";
-    ifstream fin(listFile);
+// Capture file content
+string captureFileContent(ifstream& fin_import) {
+    bool startActivated = false;
+    bool endActivated = false;
 
-    if (!fin) {
-        cout << "Error loading baseline file list" << endl;
+    string categoryfile = "";
+    while(true) {
+
+        string line;
+
+        getline(fin_import, line);
+
+        if (line.find("END OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("END OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
+            endActivated = !endActivated;
+            // cout << "Deactivating: " << nextPath << endl;
+        }
+
+        if (startActivated && !endActivated) {
+            categoryfile += line;
+            categoryfile += "\n";
+        }
+
+        if (line.find("START OF THIS PROJECT GUTENBERG EBOOK") != string::npos || line.find("START OF THE PROJECT GUTENBERG EBOOK") != string::npos) {
+            startActivated = !startActivated;
+            // cout << "Activating: " << nextPath << endl;
+        }
+
+
+        if (fin_import.eof()) {
+            break;
+        }
+    }
+
+    if (categoryfile.length() == 0) {
+        cout << "File provided is empty, invalid, or is not a Project Gutenberg file" << endl;
         exit(0);
     }
 
-    while (true) {
+    return categoryfile;
+}
 
-        string line;
-        getline(fin, line);
+void processAnyFile(const string& filename) {
 
-        if (line == "") {
-            break;
-        }
+    ifstream fin(filename);
 
-        baselineFileNames.push_back(line);
-
-        if (fin.eof()) {
-            break;
-        }
+    if (!fin) {
+        cout << "Error importing file" << endl;
+        exit(0);
     }
+
+    string content = captureFileContent(fin);
+
+    string temp_filename = "user_data";
+    ofstream fout("./" + temp_filename + ".txt");
+
+    if (!fout) {
+        cout << "Error opening temporary file" << endl;
+    }
+
+    fout << content << endl;
+
+    string command;
+    command += "cd ../../meta/build/ ";
+    command += "&& ./profile config.toml ../../data/" + temp_filename;
+
+    string stopCmd = ".txt --stop";
+    size_t stopLen = stopCmd.size();
+    command += stopCmd;
+
+    string res = exec(command.c_str());
+    cout << res << endl;
+
+    command = command.substr(0, command.size() - stopLen);
+    string stemCmd = ".stops.txt --stem";
+    size_t stemLen = stemCmd.size();
+    command += stemCmd;
+
+    res = exec(command.c_str());
+    cout << res << endl;
+
+    command = command.substr(0, command.size() - stemLen);
+    string freqCmd = ".stops.stems.txt --freq-unigram";
+    command += freqCmd;
+
+    res = exec(command.c_str());
+    cout << res << endl;
+
+    vector< pair< string, int>> data;
+    string freqName = "../../data/" + temp_filename + ".stops.stems.freq.1.txt";
+    processFile("./" + freqName, data);
+
+    processOutputFile("./user_output.txt", data);
+
+}
+
+// Import the list of filenames for the baseline files and add to a vector for later usage
+void callBaselineFilenames(vector<string>& baselineFileNames) {
+
+    string path = "../../baseline-docs/temp_analysis_dir/";
+    for (const auto & entry : fs::directory_iterator(path)) {
+        string curr_file = entry.path();
+        
+        if (curr_file.find("freq.1.txt") == string::npos) continue;
+
+        baselineFileNames.push_back(curr_file);
+    }
+
 }
 
 // Import the data from the provided inputFilename file and process it into a prettier format that only contains recognizable words
@@ -68,7 +150,7 @@ void processFile(const string& inputFilename, vector< pair<string, int>>& data) 
         string line;
 
         getline(fin, line);
-
+        
         if (line == "") {
             break;
         }
@@ -119,7 +201,7 @@ void processBaselineFiles(vector< vector< pair< string, int>>>& baselineFileData
 
     for (size_t i = 0; i < baselineFileNames.size(); i++) {
         vector< pair< string, int>> data;
-        string currentFilename = "../baseline-docs/" + baselineFileNames.at(i);
+        string currentFilename = baselineFileNames.at(i);
 
         processFile(currentFilename, data);
         baselineFileData.push_back(data);
@@ -157,7 +239,7 @@ void processOutputFile(const string& filename, const vector< pair< string, int>>
 // Process each baseline file
 void processBaselineOutputFiles(const vector<string>& baselineFileNames, const vector< vector< pair< string, int>>>& baselineFileData) {
     for (size_t i = 0; i < baselineFileNames.size(); i++) {
-        string filename = "./output/" + baselineFileNames.at(i);
+        string filename = baselineFileNames.at(i);
         vector< pair< string, int>> data = baselineFileData.at(i);
 
         processOutputFile(filename, data);
@@ -166,7 +248,7 @@ void processBaselineOutputFiles(const vector<string>& baselineFileNames, const v
 
 void captureCategories(vector<string>& categoryNames, vector<string>& categoryFiles) {
 
-    string path = "../baseline-docs/categories/";
+    string path = "../../baseline-docs/categories/";
 
     for (const auto & entry : fs::directory_iterator(path)) {
         string curr_category_name = entry.path();
@@ -293,22 +375,38 @@ void performAnalysisOnBaselineFiles(const vector<string>& categoryNames, const v
     for (size_t i = 0; i < categoryNames.size(); i++) {
 
         string command;
-        command += "cd ../../meta/build/";
-    //         command += "cd ../submodules/meta/build/ ";
-        command += "&& ./profile config.toml ../../textAnalyzerFLTK/baseline-docs/temp_analysis_dir/";
+        command += "cd ../../meta/build/ ";
+        command += "&& ./profile config.toml ../../baseline-docs/temp_analysis_dir/";
         command += categoryNames.at(i);
 
-        command += ".txt --stop --stem --freq-unigram";
-//        string res = exec(command.c_str());
-//        command += " --stem";
-//        res += exec(command.c_str());
-//        command += " --freq-unigram";
-        std::cout << command << std::endl;
+        string stopCmd = ".txt --stop";
+        size_t stopLen = stopCmd.size();
+        command += stopCmd;
+
         string res = exec(command.c_str());
         cout << res << endl;
 
-    //             ./profile config.toml ../../../baseline-docs/FILE\_HERE.stops.stems.txt --freq-unigram
+        command = command.substr(0, command.size() - stopLen);
+        string stemCmd = ".stops.txt --stem";
+        size_t stemLen = stemCmd.size();
+        command += stemCmd;
+
+        res = exec(command.c_str());
+        cout << res << endl;
+
+        command = command.substr(0, command.size() - stemLen);
+        string freqCmd = ".stops.stems.txt --freq-unigram";
+        // size_t freqLen = freqCmd.size();
+        command += freqCmd;
+
+        res = exec(command.c_str());
+        cout << res << endl;
 
     }
 
+}
+
+// Remove the temporary analysis directory
+void removeTempAnalysisDir() {
+    fs::remove_all("../baseline-docs/temp_analysis_dir/");
 }

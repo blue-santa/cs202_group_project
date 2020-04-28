@@ -12,6 +12,8 @@
 		3B1232BF240E12F4005E76E9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B1232BE240E12F4005E76E9 /* main.cpp */; };
 		3B1232C7240E13EB005E76E9 /* libfltk.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1232C6240E13EB005E76E9 /* libfltk.1.3.dylib */; };
 		3B1232CA240EDD6C005E76E9 /* fltkCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B1232C8240EDD6C005E76E9 /* fltkCode.cpp */; };
+		3B7FD40F245762D0003041A3 /* libmeta-utf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7FD40E245762D0003041A3 /* libmeta-utf.dylib */; };
+		3B7FD41024576321003041A3 /* libmeta-utf.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3B7FD40E245762D0003041A3 /* libmeta-utf.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,10 +26,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		3B7FD41124576321003041A3 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3B7FD41024576321003041A3 /* libmeta-utf.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3B10E18F244A7FDB009F724B /* libmeta-utf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libmeta-utf.dylib"; path = "../meta/build/lib/libmeta-utf.dylib"; sourceTree = "<group>"; };
 		3B10E191244A8030009F724B /* meta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meta.cpp; sourceTree = "<group>"; };
 		3B10E192244A8030009F724B /* meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = meta.hpp; sourceTree = "<group>"; };
 		3B10E193244A8030009F724B /* analyzer-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "analyzer-main.cpp"; sourceTree = "<group>"; };
@@ -36,6 +48,7 @@
 		3B1232C6240E13EB005E76E9 /* libfltk.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfltk.1.3.dylib; path = ../../../../usr/local/Cellar/fltk/1.3.5/lib/libfltk.1.3.dylib; sourceTree = "<group>"; };
 		3B1232C8240EDD6C005E76E9 /* fltkCode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fltkCode.cpp; sourceTree = "<group>"; };
 		3B1232C9240EDD6C005E76E9 /* fltkCode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fltkCode.hpp; sourceTree = "<group>"; };
+		3B7FD40E245762D0003041A3 /* libmeta-utf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libmeta-utf.dylib"; path = "../meta/build/lib/libmeta-utf.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B7FD40F245762D0003041A3 /* libmeta-utf.dylib in Frameworks */,
 				3B1232C7240E13EB005E76E9 /* libfltk.1.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,7 +97,7 @@
 		3B1232C5240E13EB005E76E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B10E18F244A7FDB009F724B /* libmeta-utf.dylib */,
+				3B7FD40E245762D0003041A3 /* libmeta-utf.dylib */,
 				3B1232C6240E13EB005E76E9 /* libfltk.1.3.dylib */,
 			);
 			name = Frameworks;
@@ -99,6 +113,7 @@
 				3B1232B7240E12F4005E76E9 /* Sources */,
 				3B1232B8240E12F4005E76E9 /* Frameworks */,
 				3B1232B9240E12F4005E76E9 /* CopyFiles */,
+				3B7FD41124576321003041A3 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -115,7 +130,7 @@
 		3B1232B3240E12F4005E76E9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Sarah Carter";
 				TargetAttributes = {
 					3B1232BA240E12F4005E76E9 = {
@@ -162,7 +177,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -206,7 +221,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -220,7 +235,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -258,9 +273,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -269,15 +285,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R4U3G8PRSV;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/lib,
 					/usr/local,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.5/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/fltk/1.3.5/lib,
+					/Users/Mine/cs202_group_project/meta/build/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "";
@@ -288,15 +309,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R4U3G8PRSV;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/lib,
 					/usr/local,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/fltk/1.3.5/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/fltk/1.3.5/lib,
+					/Users/Mine/cs202_group_project/meta/build/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "";

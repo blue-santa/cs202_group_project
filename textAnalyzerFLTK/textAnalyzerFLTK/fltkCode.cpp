@@ -98,12 +98,16 @@ void textAnalysisBase_CB(Fl_Widget*, void* data){
     performAnalysisOnBaselineFiles(categoryNames, categoryFiles);
 }
 
+void textAnalysis_CB(Fl_Widget*, void* data){
+    processAnyFile(userFile);
+}
+
 void textDisplay_cb(Fl_Widget*, void* data){
     Fl_Window* win = (Fl_Window*)data;
     win->show();
     output.clear();
     std::string line;
-    std::ifstream fin(userFile);
+    std::ifstream fin("user_output.txt");
     fileTitle->value(fileNameNoExt(userFile).c_str());
     while(std::getline(fin, line)){
         if(!fin){
@@ -185,7 +189,7 @@ Fl_Window* CreateWindow(){
     browser->callback(browserClicked);
     analyzeBase->callback(textAnalysisBase_CB);
     display->callback(textDisplay_cb, (void*)PopupWindow());
-
+    analyzeChoice->callback(textAnalysis_CB);
     
 
     win->end();
